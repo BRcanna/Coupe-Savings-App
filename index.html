@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17201e">
+  <meta name="description" content="Plan grocery trips around coupons, promotions, and the lowest final prices.">
+  <title>Coupon Trip Planner</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23d9f76b'/%3E%3Cpath d='M18 21h28v8H18zm0 14h20v8H18z' fill='%2317201e'/%3E%3Ccircle cx='46' cy='39' r='5' fill='%23ff775e'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #17201e;
+      --ink-soft: #42504a;
+      --muted: #78827d;
+      --paper: #f8f8f4;
+      --card: #ffffff;
+      --line: #e6eae4;
+      --lime: #d9f76b;
+      --lime-deep: #accd38;
+      --coral: #ff775e;
+      --sky: #d9eef0;
+      --gold: #ffda7b;
+      --shadow: 0 18px 50px rgba(29, 43, 37, .07);
+      --radius: 18px;
+      --serif: Georgia, "Times New Roman", serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; background: var(--paper); }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+
+    .app-shell { min-height: 100vh; display: grid; grid-template-columns: 240px minmax(0, 1fr); }
+    .sidebar { background: var(--ink); color: #fff; padding: 25px 18px 20px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; }
+    .brand { display: flex; align-items: center; gap: 11px; padding: 0 7px; }
+    .brand-mark { width: 35px; height: 35px; border-radius: 11px; display: grid; place-items: center; background: var(--lime); color: var(--ink); font-size: 22px; font-weight: 900; transform: rotate(-5deg); }
+    .brand-name { font-family: var(--serif); font-size: 21px; line-height: 1; letter-spacing: -.5px; }
+    .brand-name span { display: block; margin-top: 6px; color: #9da8a3; font: 10px/1.1 Inter, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
+    .nav { display: grid; gap: 7px; }
+    .nav-button { border: 0; border-radius: 11px; padding: 11px 12px; display: flex; align-items: center; gap: 11px; color: #aeb8b4; background: transparent; text-align: left; font-size: 13px; transition: .18s ease; }
+    .nav-button:hover, .nav-button.active { color: var(--ink); background: var(--lime); }
+    .nav-icon { width: 19px; height: 19px; display: grid; place-items: center; font-size: 17px; }
+    .sidebar-spacer { flex: 1; }
+    .side-card { padding: 15px; border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(255,255,255,.055); }
+    .eyebrow, .section-kicker, .kicker { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .side-card .eyebrow { color: var(--lime); }
+    .side-card strong { display: block; margin-top: 8px; font-size: 14px; }
+    .side-card p { margin: 6px 0 16px; color: #aeb8b4; font-size: 12px; line-height: 1.45; }
+    .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #dfe5e1; font-size: 12px; }
+    .switch { position: relative; width: 36px; height: 21px; flex: 0 0 auto; }
+    .switch input { position: absolute; opacity: 0; }
+    .switch-track { display: block; width: 36px; height: 21px; border-radius: 20px; background: #43504a; transition: .2s; }
+    .switch-track::after { content: ""; display: block; width: 15px; height: 15px; margin: 3px; border-radius: 50%; background: #fff; transition: .2s; }
+    .switch input:checked + .switch-track { background: var(--lime-deep); }
+    .switch input:checked + .switch-track::after { transform: translateX(15px); background: var(--ink); }
+    .sidebar-foot { color: #8d9993; font-size: 11px; line-height: 1.45; padding: 0 7px; }
+    .sidebar-foot strong { color: #dfe5e1; font-weight: 600; }
+
+    main { min-width: 0; padding: 0 42px 55px; }
+    .topbar { height: 74px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .crumb { color: var(--muted); font-size: 12px; }
+    .crumb strong { color: var(--ink); font-weight: 700; }
+    .top-actions { display: flex; align-items: center; gap: 18px; }
+    .refresh-button, .link-button, .quiet-button { border: 0; background: none; padding: 5px; color: var(--ink-soft); font-size: 12px; }
+    .refresh-button { display: flex; align-items: center; gap: 8px; }
+    .refresh-button:hover, .link-button:hover, .quiet-button:hover { color: var(--coral); }
+    .refresh-time { color: var(--muted); font-size: 11px; }
+    .avatar { width: 31px; height: 31px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #fff; font-size: 12px; font-weight: 800; }
+    .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; padding: 34px 0 26px; }
+    .kicker, .section-kicker { color: var(--coral); margin: 0 0 10px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 650px; margin-bottom: 10px; font: 400 clamp(31px, 4vw, 49px)/1.02 var(--serif); letter-spacing: -1.7px; }
+    .page-subtitle { max-width: 600px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+    .data-badge { min-width: 230px; border: 1px solid #d8e3c3; border-radius: 13px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; background: #f5fbe2; }
+    .data-badge strong { display: block; font-size: 12px; }
+    .data-badge span:last-child { display: block; margin-top: 3px; color: #74834b; font-size: 11px; }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--lime-deep); box-shadow: 0 0 0 4px rgba(172,205,56,.18); }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; margin-bottom: 19px; }
+    .metric { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 17px 18px; }
+    .metric-label { color: var(--muted); font-size: 11px; }
+    .metric-value { margin-top: 7px; font-size: 25px; font-weight: 750; letter-spacing: -.7px; }
+    .metric-value.lime { color: #81a400; }
+    .metric-meta { margin-top: 3px; color: var(--muted); font-size: 11px; }
+
+    .workspace-grid { display: grid; grid-template-columns: minmax(0, 1.44fr) minmax(320px, .82fr); gap: 19px; align-items: start; }
+    .main-column, .side-column { display: grid; gap: 19px; min-width: 0; }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 22px 23px 15px; }
+    .panel-head h2 { margin: 0; font-size: 19px; letter-spacing: -.4px; }
+    .section-kicker { color: var(--muted); margin-bottom: 7px; }
+    .ghost-button { border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; color: var(--muted); background: #fff; font-size: 11px; }
+    .ghost-button:hover { color: var(--ink); border-color: #b6c1bb; }
+    .quick-plans { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 23px 17px; }
+    .plan-chip { border: 1px solid var(--line); border-radius: 30px; padding: 8px 11px; color: var(--ink-soft); background: #fbfcf9; font-size: 11px; transition: .18s; }
+    .plan-chip:hover { border-color: var(--lime-deep); background: #f4fadf; }
+    .add-form { display: flex; gap: 8px; padding: 0 23px 19px; }
+    .add-form input { min-width: 0; flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px; outline: none; color: var(--ink); background: #fcfcfa; font-size: 13px; }
+    .add-form input:focus { border-color: var(--lime-deep); box-shadow: 0 0 0 3px rgba(172,205,56,.14); }
+    .primary-button { border: 0; border-radius: 10px; padding: 11px 15px; color: var(--ink); background: var(--lime); font-size: 12px; font-weight: 800; transition: .18s; }
+    .primary-button:hover { background: #c8e751; transform: translateY(-1px); }
+    .item-list { border-top: 1px solid var(--line); }
+    .item-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 13px; align-items: center; padding: 14px 23px; border-bottom: 1px solid var(--line); }
+    .item-row:last-child { border-bottom: 0; }
+    .item-name { min-width: 0; display: flex; align-items: center; gap: 11px; }
+    .item-icon { width: 31px; height: 31px; border-radius: 10px; display: grid; place-items: center; background: #f0f5ed; font-size: 16px; }
+    .item-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 700; }
+    .item-detail { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .quantity { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .quantity button { width: 25px; height: 27px; border: 0; color: var(--ink-soft); background: #fff; font-size: 15px; }
+    .quantity button:hover { background: #f3f6f0; }
+    .quantity span { min-width: 23px; text-align: center; font-size: 12px; font-weight: 700; }
+    .remove-item { border: 0; padding: 6px; color: #aab3ad; background: transparent; font-size: 15px; }
+    .remove-item:hover { color: var(--coral); }
+    .empty-state { padding: 34px 23px; color: var(--muted); text-align: center; font-size: 13px; }
+
+    .trip-card { padding-bottom: 6px; }
+    .trip-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin: 0 23px 15px; padding: 14px; border-radius: 13px; background: var(--ink); color: #fff; }
+    .trip-summary-label { color: #aeb8b4; font-size: 11px; }
+    .trip-summary-value { margin-top: 4px; font-size: 22px; font-weight: 750; }
+    .trip-summary-value.save { color: var(--lime); }
+    .assignment-list { display: grid; }
+    .assignment { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 12px 23px; border-top: 1px solid var(--line); }
+    .assignment-name { font-size: 12px; font-weight: 700; }
+    .assignment-store { display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    .store-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+    .assignment-price { text-align: right; }
+    .assignment-price strong { display: block; font-size: 14px; }
+    .assignment-price span { color: #7da200; font-size: 10px; font-weight: 700; }
+    .assignment-offer { display: inline-block; margin-top: 6px; border-radius: 4px; padding: 3px 5px; color: #66792e; background: #eff7d7; font-size: 10px; }
+    .trip-footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 23px 17px; color: var(--muted); font-size: 11px; }
+    .trip-footer .primary-button { padding: 8px 11px; }
+
+    .offer-panel { overflow: hidden; }
+    .offer-list { display: grid; }
+    .offer-card { padding: 15px 23px; border-top: 1px solid var(--line); }
+    .offer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .offer-title { font-size: 13px; font-weight: 750; line-height: 1.3; }
+    .offer-amount { color: #7da200; font-size: 15px; font-weight: 800; white-space: nowrap; }
+    .offer-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { border-radius: 5px; padding: 4px 6px; color: var(--ink-soft); background: #f1f4ef; font-size: 10px; }
+    .tag.stack { color: #a05c18; background: #fff4da; }
+    .offer-bottom { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 11px; color: var(--muted); font-size: 10px; }
+    .source-link { color: var(--ink-soft); font-weight: 700; text-decoration: none; }
+    .source-link:hover { color: var(--coral); text-decoration: underline; }
+
+    .lower-grid { display: grid; grid-template-columns: minmax(0,1.44fr) minmax(320px,.82fr); gap: 19px; margin-top: 19px; }
+    .store-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; padding: 0 23px 23px; }
+    .store-card { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fcfcfa; transition: .18s; }
+    .store-card.selected { border-color: var(--lime-deep); box-shadow: 0 0 0 2px rgba(172,205,56,.13); }
+    .store-toggle { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .store-toggle input { accent-color: var(--lime-deep); }
+    .store-name { margin-top: 9px; font-size: 11px; font-weight: 750; line-height: 1.15; }
+    .store-status { margin-top: 5px; color: var(--muted); font-size: 10px; }
+    .store-count { margin-top: 10px; color: #7da200; font-size: 10px; font-weight: 700; }
+    .rules { padding: 0 23px 20px; }
+    .rule { display: grid; grid-template-columns: 24px 1fr; gap: 10px; padding: 12px 0; border-top: 1px solid var(--line); }
+    .rule-icon { width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; color: var(--ink); background: var(--gold); font-size: 12px; font-weight: 900; }
+    .rule strong { display: block; font-size: 12px; }
+    .rule p { margin: 4px 0 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .footnote { margin-top: 18px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .footnote strong { color: var(--ink-soft); }
+
+    .toast { position: fixed; right: 24px; bottom: 24px; max-width: 320px; transform: translateY(18px); opacity: 0; pointer-events: none; padding: 12px 15px; border-radius: 11px; color: #fff; background: var(--ink); box-shadow: var(--shadow); font-size: 12px; transition: .22s; z-index: 5; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .mobile-menu { display: none; border: 0; background: none; font-size: 19px; }
+
+    @media (max-width: 1120px) {
+      .app-shell { grid-template-columns: 210px minmax(0,1fr); }
+      main { padding: 0 25px 42px; }
+      .workspace-grid, .lower-grid { grid-template-columns: minmax(0,1fr); }
+      .side-column { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; }
+      .store-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .app-shell { display: block; }
+      .sidebar { position: fixed; z-index: 4; left: -250px; width: 240px; transition: .22s; box-shadow: 18px 0 40px rgba(0,0,0,.17); }
+      .sidebar.open { left: 0; }
+      .mobile-menu { display: block; }
+      main { padding: 0 16px 32px; }
+      .topbar { height: 62px; }
+      .crumb { display: flex; align-items: center; gap: 10px; }
+      .page-head { display: block; padding: 27px 0 20px; }
+      .data-badge { margin-top: 20px; }
+      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .metric { padding: 14px; }
+      .metric-value { font-size: 22px; }
+      .side-column { grid-template-columns: 1fr; }
+      .store-grid { grid-template-columns: repeat(2,minmax(0,1fr)); padding-left: 16px; padding-right: 16px; }
+      .panel-head { padding-left: 17px; padding-right: 17px; }
+      .quick-plans, .add-form { padding-left: 17px; padding-right: 17px; }
+      .item-row, .assignment, .offer-card { padding-left: 17px; padding-right: 17px; }
+      .trip-summary { margin-left: 17px; margin-right: 17px; }
+      .trip-footer { padding-left: 17px; padding-right: 17px; }
+      .rules { padding-left: 17px; padding-right: 17px; }
+      h1 { letter-spacing: -1px; }
+    }
+    @media (max-width: 430px) {
+      .top-actions { gap: 7px; }
+      .refresh-time { display: none; }
+      .add-form { display: grid; grid-template-columns: 1fr auto; }
+      .item-row { grid-template-columns: minmax(0,1fr) auto; }
+      .item-row .remove-item { grid-column: 2; grid-row: 1; }
+      .item-row .quantity { grid-column: 1 / -1; justify-self: end; margin-top: -5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">%</div>
+        <div class="brand-name">Savewise<span>coupon trip planner</span></div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <button class="nav-button active" data-nav="planner"><span class="nav-icon">⌁</span>Trip planner</button>
+        <button class="nav-button" data-nav="offers"><span class="nav-icon">◇</span>Offer board</button>
+        <button class="nav-button" data-nav="stores"><span class="nav-icon">▦</span>Retailer coverage</button>
+        <button class="nav-button" data-nav="saved"><span class="nav-icon">♡</span>Saved lists</button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="side-card">
+        <div class="eyebrow">Household mode</div>
+        <strong>Maximum savings</strong>
+        <p>Split the trip when the total checkout price is lower.</p>
+        <label class="switch-row" for="multiStore">Allow multi-store trips <span class="switch"><input id="multiStore" type="checkbox" checked><span class="switch-track"></span></span></label>
+      </div>
+      <div class="sidebar-foot">Data pulse · <strong>8 retailer adapters</strong><br>Public and permitted sources only.</div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="crumb"><button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button><span>Household / <strong>Weekly trip</strong></span></div>
+        <div class="top-actions">
+          <button class="refresh-button" id="refreshButton" type="button">↻ Refresh sources <span class="refresh-time" id="refreshTime">8 min ago</span></button>
+          <div class="avatar" aria-label="Household profile">HM</div>
+        </div>
+      </header>
+
+      <section class="page-head" id="plannerSection">
+        <div>
+          <p class="kicker">COUPON TRIP PLANNER</p>
+          <h1>Make this week’s groceries pay for themselves.</h1>
+          <p class="page-subtitle">Start with a meal plan, add a few must-haves, and see which local stores create the lowest final price after offers.</p>
+        </div>
+        <div class="data-badge"><span class="pulse"></span><div><strong>Preview source set</strong><span>Illustrative data · public-source ready</span></div></div>
+      </section>
+
+      <section class="metrics" aria-label="Trip summary">
+        <div class="metric"><div class="metric-label">Expected checkout</div><div class="metric-value" id="metricTotal">$0.00</div><div class="metric-meta">after applied offers</div></div>
+        <div class="metric"><div class="metric-label">Estimated savings</div><div class="metric-value lime" id="metricSavings">$0.00</div><div class="metric-meta" id="metricSavingsMeta">0% below shelf</div></div>
+        <div class="metric"><div class="metric-label">Items matched</div><div class="metric-value" id="metricItems">0 / 0</div><div class="metric-meta">exact items first</div></div>
+        <div class="metric"><div class="metric-label">Stores in plan</div><div class="metric-value" id="metricStores">0</div><div class="metric-meta">multi-store is on</div></div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="main-column">
+          <section class="panel" id="listPanel">
+            <div class="panel-head"><div><p class="section-kicker">1 · BUILD A LIST</p><h2>What are you shopping for?</h2></div><button class="ghost-button" id="clearList" type="button">Clear list</button></div>
+            <div class="quick-plans" aria-label="Quick planning templates">
+              <button class="plan-chip" data-plan="weeknight" type="button">Weeknight dinners</button>
+              <button class="plan-chip" data-plan="breakfast" type="button">Breakfast reset</button>
+              <button class="plan-chip" data-plan="stockup" type="button">Stock-up weekend</button>
+            </div>
+            <form class="add-form" id="addForm">
+              <input id="itemInput" autocomplete="off" placeholder="Add an item, like paper towels" aria-label="Add an item">
+              <button class="primary-button" type="submit">Add item</button>
+            </form>
+            <div class="item-list" id="itemList"></div>
+          </section>
+
+          <section class="panel trip-card" id="tripPanel">
+            <div class="panel-head"><div><p class="section-kicker">3 · REVIEW THE TRIP</p><h2>Your lowest-price route</h2></div><span class="tag" id="routeTag">Preview plan</span></div>
+            <div class="trip-summary"><div><div class="trip-summary-label">Estimated total</div><div class="trip-summary-value" id="tripTotal">$0.00</div></div><div><div class="trip-summary-label">You keep</div><div class="trip-summary-value save" id="tripSavings">$0.00</div></div></div>
+            <div class="assignment-list" id="assignmentList"></div>
+            <div class="trip-footer"><span id="tripFooterText">Add items to build a route.</span><button class="primary-button" id="reviewTrip" type="button">Review trip →</button></div>
+          </section>
+        </div>
+
+        <div class="side-column">
+          <section class="panel offer-panel" id="offersPanel">
+            <div class="panel-head"><div><p class="section-kicker">2 · FIND THE MATCHES</p><h2>Best offers for your list</h2></div><button class="link-button" id="seeAllOffers" type="button">See all</button></div>
+            <div class="offer-list" id="offerList"></div>
+          </section>
+
+          <section class="panel" id="howItWorks">
+            <div class="panel-head"><div><p class="section-kicker">REDEMPTION NOTES</p><h2>Know before you go</h2></div></div>
+            <div class="rules">
+              <div class="rule"><div class="rule-icon">+</div><div><strong>Stacking is explained</strong><p>Each match shows whether sale, digital, and manufacturer offers can be combined.</p></div></div>
+              <div class="rule"><div class="rule-icon">!</div><div><strong>Nothing is silently swapped</strong><p>Lower-priced alternatives stay optional and show their size and brand differences.</p></div></div>
+              <div class="rule"><div class="rule-icon">↗</div><div><strong>Verify at the source</strong><p>Open the retailer source before checkout. Preview values are estimates, not guarantees.</p></div></div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="lower-grid" id="storesSection">
+        <section class="panel">
+          <div class="panel-head"><div><p class="section-kicker">STORE COVERAGE</p><h2>Choose where to look</h2></div><span class="tag" id="storeCountTag">8 available</span></div>
+          <div class="store-grid" id="storeGrid"></div>
+        </section>
+        <section class="panel" id="sourceNotes">
+          <div class="panel-head"><div><p class="section-kicker">SOURCE GUARDRAILS</p><h2>Built for trust</h2></div></div>
+          <div class="rules">
+            <div class="rule"><div class="rule-icon">✓</div><div><strong>Public and permitted sources</strong><p>No private loyalty credentials, checkout automation, or bypassing retailer controls.</p></div></div>
+            <div class="rule"><div class="rule-icon">◷</div><div><strong>Freshness is visible</strong><p>Each source record will carry a timestamp, expiration, and confidence level.</p></div></div>
+            <div class="rule"><div class="rule-icon">⌂</div><div><strong>Local first</strong><p>Start with the stores your household already visits, then add more adapters without changing the planner.</p></div></div>
+          </div>
+        </section>
+      </section>
+      <p class="footnote"><strong>Preview data:</strong> prices and offers below are illustrative to demonstrate the planner. Live retailer adapters can be connected only through public, permitted sources.</p>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const stores = [
+      { id: 'walmart', name: 'Walmart', initials: 'W', color: '#3b82f6', status: 'Public pages', offers: 18, source: 'https://www.walmart.com/' },
+      { id: 'price-chopper', name: 'Price Chopper', initials: 'PC', color: '#ef4444', status: 'Weekly ad ready', offers: 12, source: 'https://www.pricechopper.com/' },
+      { id: 'market-basket', name: 'Market Basket', initials: 'MB', color: '#f59e0b', status: 'Weekly ad ready', offers: 15, source: 'https://www.shopmarketbasket.com/' },
+      { id: 'ocean-state', name: 'Ocean State Job Lot', initials: 'OS', color: '#8b5cf6', status: 'Public pages', offers: 9, source: 'https://www.oceanstatejoblot.com/' },
+      { id: 'family-dollar', name: 'Family Dollar', initials: 'FD', color: '#0ea5e9', status: 'Digital offers', offers: 11, source: 'https://www.familydollar.com/' },
+      { id: 'dollar-general', name: 'Dollar General', initials: 'DG', color: '#2563eb', status: 'Digital offers', offers: 14, source: 'https://www.dollargeneral.com/' },
+      { id: 'bjs', name: "BJ's Wholesale", initials: 'BJ', color: '#16a34a', status: 'Club pricing', offers: 10, source: 'https://www.bjs.com/' },
+      { id: 'big-y', name: 'Big Y', initials: 'BY', color: '#dc2626', status: 'Weekly ad ready', offers: 13, source: 'https://www.bigy.com/' }
+    ];
+
+    const itemCatalog = {
+      chicken: { id: 'chicken', name: 'Chicken breasts', detail: '2 lb · boneless', icon: '🍗', candidates: [
+        candidate('market-basket', 8.49, '$4.25 / lb', 'Weekend meat special', 1.50, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('big-y', 9.99, '$5.00 / lb', 'Fresh meat sale', 2.00, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('walmart', 10.97, '$5.49 / lb', 'Basket builder price', 1.00, 'Store deal', 'Cannot stack', 'Sat')
+      ]},
+      oats: { id: 'oats', name: 'Old fashioned oats', detail: '18 oz · breakfast', icon: '🥣', candidates: [
+        candidate('market-basket', 3.29, '$0.18 / oz', 'Breakfast aisle special', .40, 'Store sale', 'Stacks with manufacturer', 'Sun'),
+        candidate('walmart', 3.96, '$0.22 / oz', 'Everyday low price', .50, 'Store sale', 'Cannot stack', 'Sat'),
+        candidate('bjs', 10.99, '$0.12 / oz', '42 oz club pack', 1.50, 'Club offer', 'Cannot stack', 'Oct 4', 3)
+      ]},
+      coffee: { id: 'coffee', name: 'Ground coffee', detail: '30 oz · medium roast', icon: '☕', candidates: [
+        candidate('market-basket', 7.49, '$0.25 / oz', 'Coffee week price', 1.00, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('walmart', 8.98, '$0.30 / oz', 'Digital store offer', 1.00, 'Digital', 'Stacks with sale', 'Sat'),
+        candidate('bjs', 19.99, '$0.20 / oz', '3 × 30 oz club pack', 2.00, 'Club offer', 'Cannot stack', 'Oct 4', 3)
+      ]},
+      detergent: { id: 'detergent', name: 'Laundry detergent', detail: '92 oz · family size', icon: '🫧', candidates: [
+        candidate('family-dollar', 11.00, '$0.12 / oz', 'Digital household coupon', 3.00, 'Digital coupon', 'Stacks with sale', 'Sep 30'),
+        candidate('dollar-general', 13.50, '$0.15 / oz', 'Household digital', 2.00, 'Digital coupon', 'Cannot stack', 'Sep 29'),
+        candidate('walmart', 12.97, '$0.14 / oz', 'Shelf price', 2.00, 'Store sale', 'Cannot stack', 'Sat')
+      ]},
+      paper: { id: 'paper', name: 'Paper towels', detail: '6 double rolls', icon: '🧻', candidates: [
+        candidate('ocean-state', 9.99, '$1.33 / roll', 'Closeout aisle deal', 2.00, 'Store sale', 'Cannot stack', 'While supplies last'),
+        candidate('walmart', 15.98, '$2.66 / roll', 'Multi-buy price', 1.00, 'Store deal', 'Cannot stack', 'Sat'),
+        candidate('bjs', 27.99, '$1.17 / roll', '20 roll club pack', 4.00, 'Club offer', 'Cannot stack', 'Oct 4', 3)
+      ]},
+      sauce: { id: 'sauce', name: 'Pasta sauce', detail: '24 oz · any flavor', icon: '🍝', candidates: [
+        candidate('big-y', 2.49, '$0.10 / oz', 'Pantry sale', .75, 'Store sale', 'Stacks with manufacturer', 'Sun'),
+        candidate('market-basket', 2.29, '$0.10 / oz', 'Pantry price', .50, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('walmart', 2.78, '$0.12 / oz', 'Digital pantry coupon', .75, 'Digital coupon', 'Cannot stack', 'Sat')
+      ]},
+      pasta: { id: 'pasta', name: 'Pasta', detail: '16 oz · penne or spaghetti', icon: '🍝', candidates: [
+        candidate('market-basket', 1.39, '$0.09 / oz', 'Pasta aisle special', .40, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('big-y', 1.59, '$0.10 / oz', 'Digital pantry offer', .50, 'Digital coupon', 'Cannot stack', 'Sun'),
+        candidate('walmart', 1.48, '$0.09 / oz', 'Everyday low price', .20, 'Store sale', 'Cannot stack', 'Sat')
+      ]},
+      cheese: { id: 'cheese', name: 'Shredded cheese', detail: '8 oz · cheddar', icon: '🧀', candidates: [
+        candidate('market-basket', 3.99, '$0.50 / oz', 'Dairy aisle special', .50, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('bjs', 11.99, '$0.33 / oz', '3 × 12 oz club pack', 1.00, 'Club offer', 'Cannot stack', 'Oct 4', 3),
+        candidate('walmart', 4.48, '$0.56 / oz', 'Shelf price', .50, 'Store sale', 'Cannot stack', 'Sat')
+      ]},
+      eggs: { id: 'eggs', name: 'Large eggs', detail: '18 count', icon: '🥚', candidates: [
+        candidate('market-basket', 3.49, '$0.19 / egg', 'Breakfast special', .50, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('walmart', 3.24, '$0.18 / egg', 'Everyday low price', 0, 'Shelf price', 'No offer', 'Sat'),
+        candidate('big-y', 4.29, '$0.24 / egg', 'Digital dairy offer', .75, 'Digital coupon', 'Cannot stack', 'Sun')
+      ]},
+      milk: { id: 'milk', name: 'Whole milk', detail: '1 gallon', icon: '🥛', candidates: [
+        candidate('market-basket', 3.99, '$3.99 / gal', 'Dairy aisle special', .50, 'Store sale', 'Cannot stack', 'Sun'),
+        candidate('walmart', 3.78, '$3.78 / gal', 'Everyday low price', 0, 'Shelf price', 'No offer', 'Sat'),
+        candidate('big-y', 4.49, '$4.49 / gal', 'Fresh dairy offer', .50, 'Store sale', 'Cannot stack', 'Sun')
+      ]},
+      pods: { id: 'pods', name: 'Dishwasher pods', detail: '42 count', icon: '✨', candidates: [
+        candidate('family-dollar', 8.50, '$0.20 / pod', 'Digital household coupon', 2.00, 'Digital coupon', 'Stacks with sale', 'Sep 30'),
+        candidate('dollar-general', 9.25, '$0.22 / pod', 'Clean home digital', 2.50, 'Digital coupon', 'Cannot stack', 'Sep 29'),
+        candidate('walmart', 11.97, '$0.28 / pod', 'Shelf price', 1.50, 'Store offer', 'Cannot stack', 'Sat')
+      ]}
+    };
+
+    const planPresets = {
+      weeknight: ['chicken', 'pasta', 'sauce', 'cheese'],
+      breakfast: ['oats', 'eggs', 'milk', 'coffee'],
+      stockup: ['coffee', 'detergent', 'paper', 'pods']
+    };
+
+    function candidate(store, price, unitPrice, title, discount, type, stacking, expires, pack = 1) {
+      return { store, price, unitPrice, offer: { title, discount, type, stacking, expires, pack } };
+    }
+
+    const state = {
+      items: ['chicken', 'oats', 'coffee', 'detergent', 'paper', 'sauce'].map(id => ({ ...itemCatalog[id], quantity: 1 })),
+      selectedStores: new Set(stores.map(store => store.id)),
+      multiStore: true,
+      lastRefresh: '8 min ago'
+    };
+
+    const money = value => `$${Number(value || 0).toFixed(2)}`;
+    const getStore = id => stores.find(store => store.id === id);
+    const finalPrice = option => Math.max(0, option.price - (option.offer?.discount || 0));
+    const chosenCandidates = () => {
+      const availableStores = state.selectedStores.size ? state.selectedStores : new Set(stores.map(store => store.id));
+      return state.items.map(item => {
+        const options = item.candidates.filter(option => availableStores.has(option.store));
+        if (!options.length) return { item, option: null };
+        if (!state.multiStore) return { item, options };
+        return { item, option: options.slice().sort((a, b) => finalPrice(a) - finalPrice(b))[0] };
+      });
+    };
+
+    function calculatePlan() {
+      const rows = chosenCandidates();
+      if (!state.multiStore) {
+        const totals = stores.filter(store => state.selectedStores.has(store.id)).map(store => {
+          const total = rows.reduce((sum, row) => {
+            const option = row.options?.find(candidateOption => candidateOption.store === store.id);
+            return sum + (option ? finalPrice(option) * row.item.quantity : 0);
+          }, 0);
+          const base = rows.reduce((sum, row) => sum + (row.options?.find(candidateOption => candidateOption.store === store.id)?.price || 0) * row.item.quantity, 0);
+          return { store, total, base };
+        }).filter(result => result.total > 0).sort((a, b) => a.total - b.total);
+        const selected = totals[0];
+        return rows.map(row => ({ item: row.item, option: selected?.store ? row.options.find(option => option.store === selected.store.id) : null })).filter(row => row.option);
+      }
+      return rows.filter(row => row.option).map(row => ({ item: row.item, option: row.option }));
+    }
+
+    function renderAll() {
+      renderItems();
+      renderPlan();
+      renderOffers();
+      renderStores();
+      renderMetrics();
+    }
+
+    function renderItems() {
+      const list = document.getElementById('itemList');
+      if (!state.items.length) {
+        list.innerHTML = '<div class="empty-state">Your list is empty. Start with a quick plan or add an item above.</div>';
+        return;
+      }
+      list.innerHTML = state.items.map(item => `
+        <div class="item-row">
+          <div class="item-name"><span class="item-icon">${item.icon}</span><div><div class="item-title">${item.name}</div><div class="item-detail">${item.detail}</div></div></div>
+          <div class="quantity" aria-label="Quantity for ${item.name}"><button type="button" data-action="decrease" data-id="${item.id}" aria-label="Decrease ${item.name}">−</button><span>${item.quantity}</span><button type="button" data-action="increase" data-id="${item.id}" aria-label="Increase ${item.name}">+</button></div>
+          <button class="remove-item" type="button" data-action="remove" data-id="${item.id}" aria-label="Remove ${item.name}">×</button>
+        </div>`).join('');
+    }
+
+    function renderPlan() {
+      const rows = calculatePlan();
+      const assignments = document.getElementById('assignmentList');
+      if (!rows.length) {
+        assignments.innerHTML = '<div class="empty-state">Choose a store and add a list item to see the route.</div>';
+        document.getElementById('tripTotal').textContent = '$0.00';
+        document.getElementById('tripSavings').textContent = '$0.00';
+        document.getElementById('tripFooterText').textContent = 'Add items to build a route.';
+        return;
+      }
+      const total = rows.reduce((sum, row) => sum + finalPrice(row.option) * row.item.quantity, 0);
+      const base = rows.reduce((sum, row) => sum + row.option.price * row.item.quantity, 0);
+      const savings = base - total;
+      const byStore = new Map();
+      rows.forEach(row => byStore.set(row.option.store, (byStore.get(row.option.store) || 0) + 1));
+      document.getElementById('tripTotal').textContent = money(total);
+      document.getElementById('tripSavings').textContent = money(savings);
+      document.getElementById('tripFooterText').textContent = `${byStore.size} ${byStore.size === 1 ? 'stop' : 'stops'} · ${rows.length} matched items · preview estimate`;
+      document.getElementById('routeTag').textContent = state.multiStore ? 'Savings route' : 'One-store route';
+      assignments.innerHTML = rows.map(row => {
+        const store = getStore(row.option.store);
+        return `<div class="assignment"><div><div class="assignment-name">${row.item.name}${row.item.quantity > 1 ? ` × ${row.item.quantity}` : ''}</div><div class="assignment-store"><span class="store-dot" style="background:${store.color}"></span>${store.name} · ${row.option.unitPrice}</div><span class="assignment-offer">${row.option.offer.type}: ${row.option.offer.title}</span></div><div class="assignment-price"><strong>${money(finalPrice(row.option) * row.item.quantity)}</strong><span>save ${money((row.option.offer.discount || 0) * row.item.quantity)}</span></div></div>`;
+      }).join('');
+    }
+
+    function renderOffers() {
+      const rows = calculatePlan();
+      const recommended = rows.map(row => ({ item: row.item, option: row.option })).sort((a, b) => (b.option.offer.discount / b.option.price) - (a.option.offer.discount / a.option.price)).slice(0, 4);
+      const offers = recommended.length ? recommended : state.items.flatMap(item => item.candidates.map(option => ({ item, option }))).slice(0, 4);
+      document.getElementById('offerList').innerHTML = offers.length ? offers.map(({ item, option }) => {
+        const store = getStore(option.store);
+        return `<article class="offer-card"><div class="offer-top"><div><div class="offer-title">${option.offer.title}</div><div class="item-detail">${item.name} · ${store.name}</div></div><div class="offer-amount">${option.offer.discount ? `−${money(option.offer.discount)}` : 'Shelf'}</div></div><div class="offer-meta"><span class="tag">${option.offer.type}</span><span class="tag stack">${option.offer.stacking}</span><span class="tag">Ends ${option.offer.expires}</span></div><div class="offer-bottom"><span>Final est. ${money(finalPrice(option))}</span><a class="source-link" href="${store.source}" target="_blank" rel="noopener">Open source ↗</a></div></article>`;
+      }).join('') : '<div class="empty-state">Your best matches will appear here.</div>';
+    }
+
+    function renderStores() {
+      document.getElementById('storeGrid').innerHTML = stores.map(store => `
+        <label class="store-card ${state.selectedStores.has(store.id) ? 'selected' : ''}">
+          <div class="store-toggle"><span class="store-dot" style="background:${store.color}"></span><input type="checkbox" data-store="${store.id}" ${state.selectedStores.has(store.id) ? 'checked' : ''} aria-label="Include ${store.name}"></div>
+          <div class="store-name">${store.name}</div><div class="store-status">${store.status}</div><div class="store-count">${store.offers} preview offers</div>
+        </label>`).join('');
+      document.getElementById('storeCountTag').textContent = `${state.selectedStores.size} selected`;
+    }
+
+    function renderMetrics() {
+      const rows = calculatePlan();
+      const total = rows.reduce((sum, row) => sum + finalPrice(row.option) * row.item.quantity, 0);
+      const base = rows.reduce((sum, row) => sum + row.option.price * row.item.quantity, 0);
+      const savings = base - total;
+      const storeCount = new Set(rows.map(row => row.option.store)).size;
+      document.getElementById('metricTotal').textContent = money(total);
+      document.getElementById('metricSavings').textContent = money(savings);
+      document.getElementById('metricSavingsMeta').textContent = `${base ? Math.round((savings / base) * 100) : 0}% below shelf`;
+      document.getElementById('metricItems').textContent = `${rows.length} / ${state.items.length}`;
+      document.getElementById('metricStores').textContent = storeCount;
+    }
+
+    function addItemById(id) {
+      const template = itemCatalog[id];
+      if (!template) return false;
+      const existing = state.items.find(item => item.id === id);
+      if (existing) existing.quantity += 1;
+      else state.items.push({ ...template, quantity: 1 });
+      return true;
+    }
+
+    function addItemFromText(value) {
+      const normalized = value.trim().toLowerCase();
+      const match = Object.values(itemCatalog).find(item => item.name.toLowerCase().includes(normalized) || normalized.includes(item.name.toLowerCase().split(' ')[0]));
+      if (match) { addItemById(match.id); return `${match.name} added to your list.`; }
+      const custom = { id: `custom-${Date.now()}`, name: value.trim(), detail: 'Custom item · no exact preview match yet', icon: '＋', quantity: 1, candidates: [] };
+      state.items.push(custom);
+      return `${value.trim()} added. We’ll look for an exact match when sources are connected.`;
+    }
+
+    let toastTimer;
+    function toast(message) {
+      const element = document.getElementById('toast');
+      element.textContent = message;
+      element.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => element.classList.remove('show'), 2800);
+    }
+
+    document.addEventListener('click', event => {
+      const actionTarget = event.target.closest('[data-action]');
+      if (actionTarget) {
+        const id = actionTarget.dataset.id;
+        const item = state.items.find(entry => entry.id === id);
+        if (actionTarget.dataset.action === 'increase' && item) item.quantity += 1;
+        if (actionTarget.dataset.action === 'decrease' && item) item.quantity = Math.max(1, item.quantity - 1);
+        if (actionTarget.dataset.action === 'remove') state.items = state.items.filter(entry => entry.id !== id);
+        renderAll();
+      }
+      const planButton = event.target.closest('[data-plan]');
+      if (planButton) {
+        state.items = planPresets[planButton.dataset.plan].map(id => ({ ...itemCatalog[id], quantity: 1 }));
+        renderAll();
+        toast(`${planButton.textContent} loaded. Adjust anything before building your route.`);
+      }
+      const navButton = event.target.closest('[data-nav]');
+      if (navButton) {
+        document.querySelectorAll('.nav-button').forEach(button => button.classList.toggle('active', button === navButton));
+        const target = { planner: 'plannerSection', offers: 'offersPanel', stores: 'storesSection', saved: 'listPanel' }[navButton.dataset.nav];
+        document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (navButton.dataset.nav === 'saved') toast('Saved lists are ready for the next persistence pass.');
+        document.getElementById('sidebar').classList.remove('open');
+      }
+    });
+
+    document.getElementById('addForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const input = document.getElementById('itemInput');
+      if (!input.value.trim()) return;
+      toast(addItemFromText(input.value));
+      input.value = '';
+      renderAll();
+    });
+
+    document.getElementById('clearList').addEventListener('click', () => {
+      state.items = [];
+      renderAll();
+      toast('List cleared. Start with a template or add an item.');
+    });
+
+    document.getElementById('multiStore').addEventListener('change', event => {
+      state.multiStore = event.target.checked;
+      renderAll();
+      toast(state.multiStore ? 'Multi-store savings route enabled.' : 'One-store route enabled.');
+    });
+
+    document.getElementById('storeGrid').addEventListener('change', event => {
+      const id = event.target.dataset.store;
+      if (!id) return;
+      if (event.target.checked) state.selectedStores.add(id);
+      else if (state.selectedStores.size > 1) state.selectedStores.delete(id);
+      else { event.target.checked = true; toast('Keep at least one retailer selected.'); return; }
+      renderAll();
+    });
+
+    document.getElementById('refreshButton').addEventListener('click', () => {
+      state.lastRefresh = 'just now';
+      document.getElementById('refreshTime').textContent = state.lastRefresh;
+      toast('Preview sources refreshed. Live adapters can use this same flow.');
+    });
+
+    document.getElementById('reviewTrip').addEventListener('click', () => {
+      document.getElementById('tripPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Trip review is ready. Use the source links to verify offers before checkout.');
+    });
+
+    document.getElementById('seeAllOffers').addEventListener('click', () => {
+      document.getElementById('offersPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      toast('Showing the strongest matches for your current list.');
+    });
+
+    document.getElementById('mobileMenu').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
+
+    // Optional WebMCP surface: agents can use the same visible planning actions.
+    if (document.modelContext?.registerTool) {
+      const lifecycle = new AbortController();
+      try {
+        document.modelContext.registerTool({
+          name: 'add_shopping_list_item',
+          title: 'Add shopping list item',
+          description: 'Add a known grocery item or a custom item to the visible shopping list.',
+          inputSchema: { type: 'object', properties: { item: { type: 'string' } }, required: ['item'], additionalProperties: false },
+          annotations: { readOnlyHint: false, untrustedContentHint: false },
+          execute(input) {
+            if (!input || typeof input.item !== 'string' || !input.item.trim()) throw new Error('item must be a non-empty string');
+            const message = addItemFromText(input.item);
+            renderAll();
+            return { ok: true, message, itemCount: state.items.length };
+          }
+        }, { signal: lifecycle.signal });
+        document.modelContext.registerTool({
+          name: 'read_trip_plan',
+          title: 'Read trip plan',
+          description: 'Read the current visible plan, estimated total, savings, stores, and applied offers.',
+          inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+          annotations: { readOnlyHint: true, untrustedContentHint: false },
+          execute() {
+            const rows = calculatePlan();
+            const total = rows.reduce((sum, row) => sum + finalPrice(row.option) * row.item.quantity, 0);
+            const base = rows.reduce((sum, row) => sum + row.option.price * row.item.quantity, 0);
+            return { total: Number(total.toFixed(2)), savings: Number((base - total).toFixed(2)), stores: [...new Set(rows.map(row => getStore(row.option.store).name))], items: rows.map(row => ({ item: row.item.name, store: getStore(row.option.store).name, finalPrice: Number(finalPrice(row.option).toFixed(2)), offer: row.option.offer.title })) };
+          }
+        }, { signal: lifecycle.signal });
+      } catch (error) {
+        console.warn('WebMCP registration unavailable', error);
+      }
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>

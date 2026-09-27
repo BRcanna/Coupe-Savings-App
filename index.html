@@ -3,24 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#17201e">
+  <meta name="theme-color" content="#171017">
   <meta name="description" content="Plan grocery trips around coupons, promotions, and the lowest final prices.">
   <title>Coupe Savings App</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23d9f76b'/%3E%3Cpath d='M18 21h28v8H18zm0 14h20v8H18z' fill='%2317201e'/%3E%3Ccircle cx='46' cy='39' r='5' fill='%23ff775e'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23b7f34a'/%3E%3Cpath d='M16 20h32v8H16zm0 14h22v8H16z' fill='%23171017'/%3E%3Ccircle cx='47' cy='42' r='6' fill='%23ff2f86'/%3E%3Cpath d='M40 13h9v9h-9z' fill='%237c3aed'/%3E%3C/svg%3E">
   <style>
     :root {
-      --ink: #17201e;
-      --ink-soft: #42504a;
-      --muted: #78827d;
-      --paper: #f8f8f4;
+      --ink: #171017;
+      --ink-soft: #3f3442;
+      --muted: #756b78;
+      --paper: #fffaf2;
       --card: #ffffff;
-      --line: #e6eae4;
-      --lime: #d9f76b;
-      --lime-deep: #accd38;
-      --coral: #ff775e;
-      --sky: #d9eef0;
-      --gold: #ffda7b;
-      --shadow: 0 18px 50px rgba(29, 43, 37, .07);
+      --line: #eee4ec;
+      --lime: #b7f34a;
+      --lime-deep: #83c21d;
+      --coral: #ff6b35;
+      --orange: #ff9e2c;
+      --pink: #ff2f86;
+      --purple: #7c3aed;
+      --sky: #e9d8ff;
+      --gold: #ffd447;
+      --shadow: 0 18px 50px rgba(37, 21, 38, .09);
       --radius: 18px;
       --serif: Georgia, "Times New Roman", serif;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -31,23 +34,23 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; min-width: 320px; background: var(--paper); }
+    body { margin: 0; min-width: 320px; background: radial-gradient(circle at 84% 2%, rgba(255,47,134,.09), transparent 25rem), radial-gradient(circle at 26% 19%, rgba(183,243,74,.13), transparent 21rem), var(--paper); }
     button, input { font: inherit; }
     button { cursor: pointer; }
     a { color: inherit; }
 
     .app-shell { min-height: 100vh; display: grid; grid-template-columns: 240px minmax(0, 1fr); }
-    .sidebar { background: var(--ink); color: #fff; padding: 25px 18px 20px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; }
+    .sidebar { background: var(--ink); color: #fff; padding: 25px 18px 20px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; box-shadow: 8px 0 0 rgba(183,243,74,.16); }
     .brand { display: flex; align-items: center; gap: 11px; padding: 0 7px; }
-    .brand-mark { width: 35px; height: 35px; border-radius: 11px; display: grid; place-items: center; background: var(--lime); color: var(--ink); font-size: 22px; font-weight: 900; transform: rotate(-5deg); }
+    .brand-mark { width: 35px; height: 35px; border-radius: 11px; display: grid; place-items: center; background: var(--lime); color: var(--ink); font-size: 22px; font-weight: 900; transform: rotate(-5deg); box-shadow: 4px 4px 0 var(--pink); }
     .brand-name { font-family: var(--serif); font-size: 21px; line-height: 1; letter-spacing: -.5px; }
     .brand-name span { display: block; margin-top: 6px; color: #9da8a3; font: 10px/1.1 Inter, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
     .nav { display: grid; gap: 7px; }
     .nav-button { border: 0; border-radius: 11px; padding: 11px 12px; display: flex; align-items: center; gap: 11px; color: #aeb8b4; background: transparent; text-align: left; font-size: 13px; transition: .18s ease; }
-    .nav-button:hover, .nav-button.active { color: var(--ink); background: var(--lime); }
+    .nav-button:hover, .nav-button.active { color: var(--ink); background: var(--lime); box-shadow: 4px 4px 0 var(--pink); }
     .nav-icon { width: 19px; height: 19px; display: grid; place-items: center; font-size: 17px; }
     .sidebar-spacer { flex: 1; }
-    .side-card { padding: 15px; border: 1px solid rgba(255,255,255,.12); border-radius: 15px; background: rgba(255,255,255,.055); }
+    .side-card { padding: 15px; border: 1px solid rgba(183,243,74,.28); border-radius: 15px; background: linear-gradient(145deg, rgba(255,47,134,.12), rgba(124,58,237,.14)); }
     .eyebrow, .section-kicker, .kicker { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     .side-card .eyebrow { color: var(--lime); }
     .side-card strong { display: block; margin-top: 8px; font-size: 14px; }
@@ -71,22 +74,24 @@
     .refresh-button { display: flex; align-items: center; gap: 8px; }
     .refresh-button:hover, .link-button:hover, .quiet-button:hover { color: var(--coral); }
     .refresh-time { color: var(--muted); font-size: 11px; }
-    .avatar { width: 31px; height: 31px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #fff; font-size: 12px; font-weight: 800; }
+    .avatar { width: 36px; height: 36px; border: 2px solid var(--ink); border-radius: 50%; display: grid; place-items: center; overflow: hidden; background: var(--lime); box-shadow: 3px 3px 0 var(--pink); }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 17%; }
     .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; padding: 34px 0 26px; }
-    .kicker, .section-kicker { color: var(--coral); margin: 0 0 10px; }
+    .kicker, .section-kicker { color: var(--pink); margin: 0 0 10px; }
     h1, h2, h3, p { margin-top: 0; }
     h1 { max-width: 650px; margin-bottom: 10px; font: 400 clamp(31px, 4vw, 49px)/1.02 var(--serif); letter-spacing: -1.7px; }
     .page-subtitle { max-width: 600px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
-    .data-badge { min-width: 230px; border: 1px solid #d8e3c3; border-radius: 13px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; background: #f5fbe2; }
+    .data-badge { min-width: 270px; border: 2px solid var(--ink); border-radius: 18px; padding: 10px 13px 10px 9px; display: flex; align-items: center; gap: 10px; background: var(--lime); box-shadow: 7px 7px 0 var(--purple); }
     .data-badge strong { display: block; font-size: 12px; }
-    .data-badge span:last-child { display: block; margin-top: 3px; color: #74834b; font-size: 11px; }
-    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--lime-deep); box-shadow: 0 0 0 4px rgba(172,205,56,.18); }
+    .data-badge span:last-child { display: block; margin-top: 3px; color: #4c6110; font-size: 11px; }
+    .advisor-avatar { width: 58px; height: 58px; flex: 0 0 auto; object-fit: contain; object-position: center; border-radius: 15px; background: var(--purple); }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px rgba(255,47,134,.18); }
 
     .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; margin-bottom: 19px; }
     .metric { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 17px 18px; }
     .metric-label { color: var(--muted); font-size: 11px; }
     .metric-value { margin-top: 7px; font-size: 25px; font-weight: 750; letter-spacing: -.7px; }
-    .metric-value.lime { color: #81a400; }
+    .metric-value.lime { color: #6caa00; }
     .metric-meta { margin-top: 3px; color: var(--muted); font-size: 11px; }
 
     .workspace-grid { display: grid; grid-template-columns: minmax(0, 1.44fr) minmax(320px, .82fr); gap: 19px; align-items: start; }
@@ -283,7 +288,7 @@
       .topbar { height: 62px; }
       .crumb { display: flex; align-items: center; gap: 10px; }
       .page-head { display: block; padding: 27px 0 20px; }
-      .data-badge { margin-top: 20px; }
+      .data-badge { min-width: 0; width: 100%; margin-top: 20px; }
       .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .metric { padding: 14px; }
       .metric-value { font-size: 22px; }
@@ -355,7 +360,7 @@
         <div class="crumb"><button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button><span>Household / <strong>Weekly trip</strong></span></div>
         <div class="top-actions">
           <button class="refresh-button" id="refreshButton" type="button">↻ Refresh sources <span class="refresh-time" id="refreshTime">8 min ago</span></button>
-          <div class="avatar" aria-label="Household profile">HM</div>
+          <div class="avatar" aria-label="Coupe coupon coach"><img src="coupe-advisor.png" alt="Cartoon coupon coach based on your household advisor"></div>
         </div>
       </header>
 
@@ -365,7 +370,7 @@
           <h1>Make this week’s groceries pay for themselves.</h1>
           <p class="page-subtitle">Start with a meal plan, add a few must-haves, and see which local stores create the lowest final price after offers.</p>
         </div>
-        <div class="data-badge"><span class="pulse"></span><div><strong>Preview source set</strong><span>Illustrative data · public-source ready</span></div></div>
+        <div class="data-badge"><img class="advisor-avatar" src="coupe-advisor.png" alt="Cartoon coupon coach holding colorful coupons"><div><strong>Your coupon coach is on duty</strong><span>Fun guidance · simple savings moves</span></div></div>
       </section>
 
       <section class="metrics" aria-label="Trip summary">

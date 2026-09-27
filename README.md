@@ -17,6 +17,8 @@ It turns meal-planning templates and custom shopping items into a savings-focuse
 - Item-level target-price watches with retailer comparisons
 - Savings history with weekly momentum and annualized projections
 - Optional one-time automatic routing of reviewed trip savings into a selected goal
+- A colorful cartoon coupon coach advisor based on the household reference portrait
+- Black, yellow, lime, orange, hot pink, and purple visual branding
 - A retailer adapter boundary for Walmart, Price Chopper, Market Basket, Ocean State Job Lot, Family Dollar, Dollar General, BJ's Wholesale, and Big Y
 
 ## Run locally

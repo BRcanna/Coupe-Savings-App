@@ -1,0 +1,17 @@
+{
+  "name": "Coupe Savings App",
+  "short_name": "Coupe Savings",
+  "description": "A fun coupon-aware grocery planner for smarter local shopping trips.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf2",
+  "theme_color": "#171017",
+  "icons": [
+    {
+      "src": "coupe-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

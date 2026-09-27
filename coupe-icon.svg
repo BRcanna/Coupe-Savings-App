@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Coupe Savings app icon</title>
+  <desc id="desc">A bright coupon ticket with colorful savings accents.</desc>
+  <rect width="512" height="512" rx="126" fill="#171017"/>
+  <path d="M124 164h260v58c-30 0-54 24-54 54s24 54 54 54v58H124v-58c30 0 54-24 54-54s-24-54-54-54z" fill="#c4f25a" stroke="#fff" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M256 184v184" stroke="#171017" stroke-width="12" stroke-dasharray="18 18"/>
+  <circle cx="372" cy="130" r="45" fill="#ff2f86"/>
+  <path d="M355 130h34M372 113v34" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <path d="M107 137 67 97M122 185 67 175M405 379l42 42M390 410l14 55" stroke="#ffd447" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="101" cy="390" r="30" fill="#ff7c22"/>
+  <circle cx="408" cy="73" r="24" fill="#7226ca"/>
+</svg>

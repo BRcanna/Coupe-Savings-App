@@ -20,6 +20,7 @@ It turns meal-planning templates and custom shopping items into a savings-focuse
 - A colorful cartoon coupon coach advisor based on the household reference portrait
 - Black, yellow, lime, orange, hot pink, and purple visual branding
 - Three switchable color moods: Black + Yellow, Orange + Lime, and Pink + Purple
+- Full Coupe Savings wordmark and compact app icon for browser, home-screen, and sidebar use
 - A retailer adapter boundary for Walmart, Price Chopper, Market Basket, Ocean State Job Lot, Family Dollar, Dollar General, BJ's Wholesale, and Big Y
 
 ## Run locally

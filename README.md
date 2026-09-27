@@ -10,14 +10,21 @@ It turns meal-planning templates and custom shopping items into a savings-focuse
 - Coupon, sale, digital-offer, expiration, and stacking metadata
 - One-store versus maximum-savings multi-store routing
 - Source links and redemption guardrails
+- Upcoming sale alerts that can be watched or muted
+- Daily, weekly, monthly, yearly, and five-year budget views
+- Long-term household goals with progress tracking and quick savings deposits
 - A retailer adapter boundary for Walmart, Price Chopper, Market Basket, Ocean State Job Lot, Family Dollar, Dollar General, BJ's Wholesale, and Big Y
 
 ## Run locally
 
-This is a buildless static site. Serve the `dist` directory with any static server, then open the root page.
+This is a buildless static site. From the published Site checkout, serve the `dist` directory with any static server. The GitHub repository upload keeps the page at the repository root, so serving the repository root works there.
 
 ```powershell
+# Site checkout
 python -m http.server 4173 --directory dist
+
+# GitHub repository upload (root index.html)
+python -m http.server 4173
 ```
 
-The current UI uses clearly labeled illustrative preview data. Live coupon and price adapters should only use public, permitted, or approved sources and should attach source URLs, timestamps, expiration data, eligibility, and confidence metadata.
+The app uses local browser storage for household budget preferences, alert subscriptions, and goal progress. The current UI uses clearly labeled illustrative preview data. Live coupon and price adapters should only use public, permitted, or approved sources and should attach source URLs, timestamps, expiration data, eligibility, and confidence metadata.

@@ -150,6 +150,51 @@
     .source-link { color: var(--ink-soft); font-weight: 700; text-decoration: none; }
     .source-link:hover { color: var(--coral); text-decoration: underline; }
 
+    .insight-grid { display: grid; grid-template-columns: minmax(0,1.04fr) minmax(320px,.96fr); gap: 19px; margin-top: 19px; }
+    .alert-list { display: grid; }
+    .alert-card { display: grid; grid-template-columns: 10px minmax(0,1fr) auto; gap: 11px; align-items: start; padding: 14px 23px; border-top: 1px solid var(--line); }
+    .alert-pip { width: 9px; height: 9px; margin-top: 4px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px rgba(255,119,94,.13); }
+    .alert-pip.watching { background: var(--lime-deep); box-shadow: 0 0 0 4px rgba(172,205,56,.15); }
+    .alert-title { font-size: 12px; font-weight: 750; line-height: 1.35; }
+    .alert-copy { margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .alert-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .alert-action { border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; color: var(--ink-soft); background: #fff; font-size: 10px; white-space: nowrap; }
+    .alert-action:hover { border-color: var(--lime-deep); background: #f4fadf; }
+    .alert-action.watching { border-color: #d4e9a0; color: #66821a; background: #f3f9e0; }
+    .horizon-tabs { display: flex; gap: 5px; overflow-x: auto; padding: 0 23px 16px; scrollbar-width: none; }
+    .horizon-tabs::-webkit-scrollbar { display: none; }
+    .horizon-tab { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; color: var(--muted); background: #fff; font-size: 11px; }
+    .horizon-tab.active { border-color: var(--ink); color: #fff; background: var(--ink); }
+    .budget-content { margin: 0 23px; padding: 17px; border-radius: 13px; background: #f4f8ed; }
+    .budget-kicker { color: #718341; font-size: 10px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .budget-number { margin-top: 5px; font-size: 29px; font-weight: 800; letter-spacing: -1px; }
+    .budget-number span { color: var(--muted); font-size: 12px; font-weight: 500; letter-spacing: 0; }
+    .budget-copy { margin: 8px 0 0; color: var(--ink-soft); font-size: 11px; line-height: 1.45; }
+    .budget-breakdown { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .budget-breakdown div { padding: 9px 10px; border-radius: 8px; background: rgba(255,255,255,.72); }
+    .budget-breakdown span { display: block; color: var(--muted); font-size: 10px; }
+    .budget-breakdown strong { display: block; margin-top: 4px; font-size: 14px; }
+    .budget-form { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 23px 20px; }
+    .budget-form label { color: var(--muted); font-size: 11px; }
+    .budget-form input { width: 92px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 9px; color: var(--ink); background: #fff; font-size: 12px; font-weight: 700; }
+    .goal-panel { margin-top: 19px; }
+    .goal-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; padding: 0 23px 18px; }
+    .goal-card { border: 1px solid var(--line); border-radius: 12px; padding: 13px; background: #fcfcfa; }
+    .goal-top { display: flex; justify-content: space-between; gap: 9px; }
+    .goal-title { font-size: 12px; font-weight: 750; line-height: 1.25; }
+    .goal-horizon { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .goal-amounts { display: flex; justify-content: space-between; gap: 9px; margin-top: 13px; color: var(--muted); font-size: 10px; }
+    .goal-amounts strong { color: var(--ink); font-size: 12px; }
+    .goal-track { height: 7px; margin-top: 7px; overflow: hidden; border-radius: 99px; background: #e8eee0; }
+    .goal-fill { height: 100%; border-radius: inherit; background: var(--lime-deep); }
+    .goal-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; color: var(--muted); font-size: 10px; }
+    .goal-save { border: 0; border-radius: 6px; padding: 5px 7px; color: #607e10; background: #eff7d7; font-size: 10px; font-weight: 700; }
+    .goal-save:hover { background: #e2f0bc; }
+    .goal-form { display: grid; grid-template-columns: minmax(0,1fr) 110px auto; gap: 8px; padding: 0 23px 22px; }
+    .goal-form input { min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; color: var(--ink); background: #fff; font-size: 11px; }
+    .goal-form input:focus, .budget-form input:focus { outline: 2px solid rgba(172,205,56,.28); border-color: var(--lime-deep); }
+    .recommendation-note { margin: 0 23px 21px; padding: 11px 12px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: #fff5f1; font-size: 11px; line-height: 1.45; }
+
     .lower-grid { display: grid; grid-template-columns: minmax(0,1.44fr) minmax(320px,.82fr); gap: 19px; margin-top: 19px; }
     .store-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; padding: 0 23px 23px; }
     .store-card { min-width: 0; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fcfcfa; transition: .18s; }
@@ -174,7 +219,7 @@
     @media (max-width: 1120px) {
       .app-shell { grid-template-columns: 210px minmax(0,1fr); }
       main { padding: 0 25px 42px; }
-      .workspace-grid, .lower-grid { grid-template-columns: minmax(0,1fr); }
+      .workspace-grid, .lower-grid, .insight-grid { grid-template-columns: minmax(0,1fr); }
       .side-column { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; }
       .store-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
     }
@@ -193,12 +238,18 @@
       .metric-value { font-size: 22px; }
       .side-column { grid-template-columns: 1fr; }
       .store-grid { grid-template-columns: repeat(2,minmax(0,1fr)); padding-left: 16px; padding-right: 16px; }
+      .goal-grid { grid-template-columns: 1fr; padding-left: 17px; padding-right: 17px; }
       .panel-head { padding-left: 17px; padding-right: 17px; }
       .quick-plans, .add-form { padding-left: 17px; padding-right: 17px; }
       .item-row, .assignment, .offer-card { padding-left: 17px; padding-right: 17px; }
       .trip-summary { margin-left: 17px; margin-right: 17px; }
       .trip-footer { padding-left: 17px; padding-right: 17px; }
       .rules { padding-left: 17px; padding-right: 17px; }
+      .alert-card { padding-left: 17px; padding-right: 17px; }
+      .horizon-tabs { padding-left: 17px; padding-right: 17px; }
+      .budget-content { margin-left: 17px; margin-right: 17px; }
+      .budget-form, .goal-form { padding-left: 17px; padding-right: 17px; }
+      .recommendation-note { margin-left: 17px; margin-right: 17px; }
       h1 { letter-spacing: -1px; }
     }
     @media (max-width: 430px) {
@@ -208,6 +259,8 @@
       .item-row { grid-template-columns: minmax(0,1fr) auto; }
       .item-row .remove-item { grid-column: 2; grid-row: 1; }
       .item-row .quantity { grid-column: 1 / -1; justify-self: end; margin-top: -5px; }
+      .goal-form { grid-template-columns: 1fr 94px; }
+      .goal-form .primary-button { grid-column: 1 / -1; }
     }
   </style>
 </head>
@@ -221,6 +274,8 @@
       <nav class="nav" aria-label="Primary navigation">
         <button class="nav-button active" data-nav="planner"><span class="nav-icon">⌁</span>Trip planner</button>
         <button class="nav-button" data-nav="offers"><span class="nav-icon">◇</span>Offer board</button>
+        <button class="nav-button" data-nav="alerts"><span class="nav-icon">◷</span>Sale alerts</button>
+        <button class="nav-button" data-nav="budget"><span class="nav-icon">◎</span>Budget &amp; goals</button>
         <button class="nav-button" data-nav="stores"><span class="nav-icon">▦</span>Retailer coverage</button>
         <button class="nav-button" data-nav="saved"><span class="nav-icon">♡</span>Saved lists</button>
       </nav>
@@ -314,6 +369,30 @@
           </div>
         </section>
       </section>
+      <section class="insight-grid" id="alertsSection">
+        <section class="panel" id="alertsPanel">
+          <div class="panel-head"><div><p class="section-kicker">4 · WATCH THE CALENDAR</p><h2>Upcoming sale alerts</h2></div><span class="tag" id="alertCountTag">0 watching</span></div>
+          <div class="alert-list" id="alertList"></div>
+        </section>
+        <section class="panel" id="budgetSection">
+          <div class="panel-head"><div><p class="section-kicker">5 · BUDGET THE HOUSEHOLD</p><h2>Planning horizon</h2></div><span class="tag">Editable estimate</span></div>
+          <div class="horizon-tabs" id="horizonTabs" aria-label="Budget planning horizons">
+            <button class="horizon-tab" data-horizon="daily" type="button" onclick="setHorizon('daily')">Daily</button>
+            <button class="horizon-tab active" data-horizon="weekly" type="button" onclick="setHorizon('weekly')">Weekly</button>
+            <button class="horizon-tab" data-horizon="monthly" type="button" onclick="setHorizon('monthly')">Monthly</button>
+            <button class="horizon-tab" data-horizon="yearly" type="button" onclick="setHorizon('yearly')">Yearly</button>
+            <button class="horizon-tab" data-horizon="five-year" type="button" onclick="setHorizon('five-year')">5 years</button>
+          </div>
+          <div id="budgetContent"></div>
+          <div class="budget-form"><label for="weeklyBudget">Weekly grocery cap</label><input id="weeklyBudget" type="number" min="1" step="5" value="125" aria-label="Weekly grocery budget"></div>
+        </section>
+      </section>
+      <section class="panel goal-panel" id="goalsSection">
+        <div class="panel-head"><div><p class="section-kicker">6 · TURN SAVINGS INTO GOALS</p><h2>Long-term household goals</h2></div><span class="tag">Savings can compound</span></div>
+        <p class="recommendation-note" id="recommendationNote">A simple rule: route a portion of verified coupon savings into a goal instead of letting it disappear into the week.</p>
+        <div class="goal-grid" id="goalGrid"></div>
+        <form class="goal-form" id="goalForm"><input id="goalName" placeholder="Add a goal, like holiday pantry fund" aria-label="Goal name"><input id="goalTarget" type="number" min="1" step="1" placeholder="Target $" aria-label="Goal target"><button class="primary-button" type="submit">Add goal</button></form>
+      </section>
       <p class="footnote"><strong>Preview data:</strong> prices and offers below are illustrative to demonstrate the planner. Live retailer adapters can be connected only through public, permitted sources.</p>
     </main>
   </div>
@@ -395,6 +474,30 @@
       stockup: ['coffee', 'detergent', 'paper', 'pods']
     };
 
+    const saleAlerts = [
+      { id: 'market-basket-weekly', store: 'market-basket', title: 'Market Basket pantry refresh', window: 'Starts in 2 days', detail: 'Pasta, sauces, dairy, and breakfast staples usually rotate on the next ad.', potential: '$8–$14 potential', source: 'https://www.shopmarketbasket.com/' },
+      { id: 'big-y-weekly', store: 'big-y', title: 'Big Y weekly ad window', window: 'Starts in 4 days', detail: 'Watch for fresh meat and pantry markdowns before building the next dinner plan.', potential: '$10–$18 potential', source: 'https://www.bigy.com/' },
+      { id: 'dollar-general-five', store: 'dollar-general', title: 'Dollar General digital coupon cycle', window: 'Ends in 3 days', detail: 'Household and cleaning offers are approaching their expiration window.', potential: '$4–$9 potential', source: 'https://www.dollargeneral.com/' },
+      { id: 'bjs-stockup', store: 'bjs', title: "BJ's stock-up watch", window: 'Ends in 8 days', detail: 'Club-pack math is strongest when a pantry item will be used within 30 days.', potential: '$12–$25 potential', source: 'https://www.bjs.com/' }
+    ];
+
+    const horizonMeta = {
+      daily: { label: 'Daily', factor: 1 / 7, unit: 'per day', copy: 'A small daily guardrail for snacks, top-ups, and impulse buys.' },
+      weekly: { label: 'Weekly', factor: 1, unit: 'per week', copy: 'The primary grocery cap for your next shopping cycle.' },
+      monthly: { label: 'Monthly', factor: 4.33, unit: 'per month', copy: 'Useful for aligning four weekly trips with recurring household items.' },
+      yearly: { label: 'Yearly', factor: 52, unit: 'per year', copy: 'A planning ceiling for groceries, pantry stock-up, and seasonal spikes.' },
+      'five-year': { label: '5 years', factor: 260, unit: 'over 5 years', copy: 'A long-range planning view—not a promise—of what steady habits can protect.' }
+    };
+
+    const defaultGoals = [
+      { id: 'holiday-pantry', name: 'Holiday pantry fund', target: 600, saved: 186, horizon: 'Yearly', weeks: 26 },
+      { id: 'household-buffer', name: 'Household buffer', target: 2500, saved: 720, horizon: '5 years', weeks: 260 },
+      { id: 'big-purchase', name: 'Next big purchase', target: 1200, saved: 310, horizon: 'Long term', weeks: 52 }
+    ];
+
+    let storedPreferences = {};
+    try { storedPreferences = JSON.parse(localStorage.getItem('coupe-savings-preferences') || '{}'); } catch (error) { storedPreferences = {}; }
+
     function candidate(store, price, unitPrice, title, discount, type, stacking, expires, pack = 1) {
       return { store, price, unitPrice, offer: { title, discount, type, stacking, expires, pack } };
     }
@@ -403,10 +506,26 @@
       items: ['chicken', 'oats', 'coffee', 'detergent', 'paper', 'sauce'].map(id => ({ ...itemCatalog[id], quantity: 1 })),
       selectedStores: new Set(stores.map(store => store.id)),
       multiStore: true,
-      lastRefresh: '8 min ago'
+      lastRefresh: '8 min ago',
+      horizon: storedPreferences.horizon || 'weekly',
+      weeklyBudget: Number(storedPreferences.weeklyBudget) || 125,
+      watchedAlerts: new Set(Array.isArray(storedPreferences.watchedAlerts) ? storedPreferences.watchedAlerts : saleAlerts.map(alert => alert.id)),
+      goals: Array.isArray(storedPreferences.goals) ? storedPreferences.goals : defaultGoals
     };
 
-    const money = value => `$${Number(value || 0).toFixed(2)}`;
+    function persistPreferences() {
+      localStorage.setItem('coupe-savings-preferences', JSON.stringify({ horizon: state.horizon, weeklyBudget: state.weeklyBudget, watchedAlerts: [...state.watchedAlerts], goals: state.goals }));
+    }
+
+    function setHorizon(horizon) {
+      if (!horizonMeta[horizon]) return;
+      state.horizon = horizon;
+      persistPreferences();
+      renderBudget();
+      toast(`${horizonMeta[state.horizon].label} planning view selected.`);
+    }
+
+    const money = value => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(value || 0));
     const getStore = id => stores.find(store => store.id === id);
     const finalPrice = option => Math.max(0, option.price - (option.offer?.discount || 0));
     const chosenCandidates = () => {
@@ -442,6 +561,43 @@
       renderOffers();
       renderStores();
       renderMetrics();
+      renderAlerts();
+      renderBudget();
+      renderGoals();
+    }
+
+    function renderAlerts() {
+      const watched = saleAlerts.filter(alert => state.watchedAlerts.has(alert.id)).length;
+      document.getElementById('alertCountTag').textContent = `${watched} watching`;
+      document.getElementById('alertList').innerHTML = saleAlerts.map(alert => {
+        const store = getStore(alert.store);
+        const isWatching = state.watchedAlerts.has(alert.id);
+        return `<article class="alert-card"><span class="alert-pip ${isWatching ? 'watching' : ''}"></span><div><div class="alert-title">${alert.title}</div><div class="alert-copy">${alert.detail}</div><div class="alert-meta"><span class="tag">${store.name}</span><span class="tag">${alert.window}</span><span class="tag">${alert.potential}</span></div></div><button class="alert-action ${isWatching ? 'watching' : ''}" type="button" data-action="toggle-alert" data-id="${alert.id}">${isWatching ? 'Watching' : 'Watch sale'}</button></article>`;
+      }).join('');
+    }
+
+    function renderBudget() {
+      const meta = horizonMeta[state.horizon] || horizonMeta.weekly;
+      const cap = state.weeklyBudget * meta.factor;
+      const couponTarget = cap * .15;
+      const planRows = calculatePlan();
+      const tripTotal = planRows.reduce((sum, row) => sum + finalPrice(row.option) * row.item.quantity, 0);
+      const roundedCap = Math.max(0, Math.round(cap));
+      const roundedTarget = Math.max(0, Math.round(couponTarget));
+      document.querySelectorAll('.horizon-tab').forEach(button => button.classList.toggle('active', button.dataset.horizon === state.horizon));
+      document.getElementById('weeklyBudget').value = state.weeklyBudget;
+      document.getElementById('budgetContent').innerHTML = `<div class="budget-content"><div class="budget-kicker">${meta.label} planning cap</div><div class="budget-number">${money(roundedCap)} <span>${meta.unit}</span></div><p class="budget-copy">${meta.copy} At a 15% savings target, route roughly ${money(roundedTarget)} into a goal or keep it as a cushion.</p><div class="budget-breakdown"><div><span>Coupon target</span><strong>${money(roundedTarget)}</strong></div><div><span>Current trip</span><strong>${money(tripTotal)}</strong></div></div></div>`;
+      const weeklyHeadroom = Math.max(0, state.weeklyBudget - tripTotal);
+      document.getElementById('recommendationNote').textContent = `Recommendation: this preview trip uses ${money(tripTotal)} of your ${money(state.weeklyBudget)} weekly cap, leaving ${money(weeklyHeadroom)} of headroom. Protect the 15% savings target by moving verified discounts into a goal.`;
+    }
+
+    function renderGoals() {
+      document.getElementById('goalGrid').innerHTML = state.goals.length ? state.goals.map(goal => {
+        const progress = Math.min(100, Math.round((goal.saved / goal.target) * 100));
+        const remaining = Math.max(0, goal.target - goal.saved);
+        const weeklyNeed = goal.weeks ? Math.ceil(remaining / goal.weeks) : remaining;
+        return `<article class="goal-card"><div class="goal-top"><div class="goal-title">${goal.name}</div><div class="goal-horizon">${goal.horizon}</div></div><div class="goal-amounts"><span><strong>${money(goal.saved)}</strong> saved</span><span>${money(goal.target)} target</span></div><div class="goal-track"><div class="goal-fill" style="width:${progress}%"></div></div><div class="goal-footer"><span>${progress}% · ${money(weeklyNeed)} / week</span><button class="goal-save" type="button" data-action="save-goal" data-id="${goal.id}">＋ $25 saved</button></div></article>`;
+      }).join('') : '<div class="empty-state">Add a goal to give your coupon savings somewhere to go.</div>';
     }
 
     function renderItems() {
@@ -550,6 +706,16 @@
         if (actionTarget.dataset.action === 'increase' && item) item.quantity += 1;
         if (actionTarget.dataset.action === 'decrease' && item) item.quantity = Math.max(1, item.quantity - 1);
         if (actionTarget.dataset.action === 'remove') state.items = state.items.filter(entry => entry.id !== id);
+        if (actionTarget.dataset.action === 'toggle-alert') {
+          if (state.watchedAlerts.has(id)) state.watchedAlerts.delete(id);
+          else state.watchedAlerts.add(id);
+          persistPreferences();
+          toast(state.watchedAlerts.has(id) ? 'Sale alert added to your watch list.' : 'Sale alert muted.');
+        }
+        if (actionTarget.dataset.action === 'save-goal') {
+          const goal = state.goals.find(entry => entry.id === id);
+          if (goal) { goal.saved = Math.min(goal.target, Number(goal.saved || 0) + 25); persistPreferences(); toast(`${goal.name} moved ${money(25)} closer.`); }
+        }
         renderAll();
       }
       const planButton = event.target.closest('[data-plan]');
@@ -561,7 +727,7 @@
       const navButton = event.target.closest('[data-nav]');
       if (navButton) {
         document.querySelectorAll('.nav-button').forEach(button => button.classList.toggle('active', button === navButton));
-        const target = { planner: 'plannerSection', offers: 'offersPanel', stores: 'storesSection', saved: 'listPanel' }[navButton.dataset.nav];
+        const target = { planner: 'plannerSection', offers: 'offersPanel', alerts: 'alertsSection', budget: 'budgetSection', stores: 'storesSection', saved: 'listPanel' }[navButton.dataset.nav];
         document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         if (navButton.dataset.nav === 'saved') toast('Saved lists are ready for the next persistence pass.');
         document.getElementById('sidebar').classList.remove('open');
@@ -587,6 +753,29 @@
       state.multiStore = event.target.checked;
       renderAll();
       toast(state.multiStore ? 'Multi-store savings route enabled.' : 'One-store route enabled.');
+    });
+
+    document.getElementById('weeklyBudget').addEventListener('input', event => {
+      const nextBudget = Number(event.target.value);
+      state.weeklyBudget = Number.isFinite(nextBudget) && nextBudget > 0 ? Math.round(nextBudget) : 125;
+      persistPreferences();
+      renderBudget();
+      toast(`Weekly grocery cap set to ${money(state.weeklyBudget)}.`);
+    });
+
+    document.getElementById('goalForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const nameInput = document.getElementById('goalName');
+      const targetInput = document.getElementById('goalTarget');
+      const name = nameInput.value.trim();
+      const target = Number(targetInput.value);
+      if (!name || !Number.isFinite(target) || target <= 0) { toast('Add a goal name and a target amount first.'); return; }
+      state.goals.push({ id: `goal-${Date.now()}`, name, target: Math.round(target), saved: 0, horizon: 'Long term', weeks: 52 });
+      persistPreferences();
+      nameInput.value = '';
+      targetInput.value = '';
+      renderGoals();
+      toast(`${name} added to your household goals.`);
     });
 
     document.getElementById('storeGrid').addEventListener('change', event => {

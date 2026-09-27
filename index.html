@@ -15,14 +15,20 @@
       --paper: #fffaf2;
       --card: #ffffff;
       --line: #eee4ec;
-      --lime: #b7f34a;
-      --lime-deep: #83c21d;
-      --coral: #ff6b35;
-      --orange: #ff9e2c;
-      --pink: #ff2f86;
-      --purple: #7c3aed;
-      --sky: #e9d8ff;
-      --gold: #ffd447;
+      --lime: #c4f25a;
+      --lime-deep: #80ad20;
+      --coral: #ff7c22;
+      --orange: #ff9f1c;
+      --pink: #ffb52f;
+      --purple: #557218;
+      --sky: #e6f5be;
+      --gold: #ffd344;
+      --glow-a: rgba(255,124,34,.10);
+      --glow-b: rgba(196,242,90,.14);
+      --side-a: rgba(255,124,34,.14);
+      --side-b: rgba(196,242,90,.12);
+      --edge-glow: rgba(196,242,90,.18);
+      --pulse-glow: rgba(255,124,34,.18);
       --shadow: 0 18px 50px rgba(37, 21, 38, .09);
       --radius: 18px;
       --serif: Georgia, "Times New Roman", serif;
@@ -32,15 +38,63 @@
       font-synthesis: none;
     }
 
+    :root[data-theme="black-yellow"] {
+      --ink: #11100d;
+      --ink-soft: #3d3827;
+      --muted: #756e5a;
+      --paper: #fffdf3;
+      --card: #ffffff;
+      --line: #eee7c7;
+      --lime: #ffd447;
+      --lime-deep: #c59400;
+      --coral: #e3a500;
+      --orange: #ffbd23;
+      --pink: #11100d;
+      --purple: #11100d;
+      --sky: #fff3b7;
+      --gold: #ffd447;
+      --glow-a: rgba(255,212,71,.14);
+      --glow-b: rgba(17,16,13,.06);
+      --side-a: rgba(255,212,71,.14);
+      --side-b: rgba(17,16,13,.16);
+      --edge-glow: rgba(255,212,71,.20);
+      --pulse-glow: rgba(255,212,71,.18);
+      --shadow: 0 18px 50px rgba(52, 43, 15, .10);
+    }
+
+    :root[data-theme="pink-purple"] {
+      --ink: #24112e;
+      --ink-soft: #4b3156;
+      --muted: #806889;
+      --paper: #fff7fc;
+      --card: #ffffff;
+      --line: #f1d8ed;
+      --lime: #ff4d9b;
+      --lime-deep: #d32173;
+      --coral: #9c4dff;
+      --orange: #ff8bce;
+      --pink: #ff2f86;
+      --purple: #7226ca;
+      --sky: #eed9ff;
+      --gold: #ffcfeb;
+      --glow-a: rgba(255,47,134,.13);
+      --glow-b: rgba(114,38,202,.12);
+      --side-a: rgba(255,47,134,.14);
+      --side-b: rgba(114,38,202,.18);
+      --edge-glow: rgba(255,77,155,.20);
+      --pulse-glow: rgba(255,47,134,.18);
+      --shadow: 0 18px 50px rgba(89, 28, 112, .12);
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; min-width: 320px; background: radial-gradient(circle at 84% 2%, rgba(255,47,134,.09), transparent 25rem), radial-gradient(circle at 26% 19%, rgba(183,243,74,.13), transparent 21rem), var(--paper); }
+    body { margin: 0; min-width: 320px; background: radial-gradient(circle at 84% 2%, var(--glow-a), transparent 25rem), radial-gradient(circle at 26% 19%, var(--glow-b), transparent 21rem), var(--paper); }
     button, input { font: inherit; }
     button { cursor: pointer; }
     a { color: inherit; }
 
     .app-shell { min-height: 100vh; display: grid; grid-template-columns: 240px minmax(0, 1fr); }
-    .sidebar { background: var(--ink); color: #fff; padding: 25px 18px 20px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; box-shadow: 8px 0 0 rgba(183,243,74,.16); }
+    .sidebar { background: var(--ink); color: #fff; padding: 25px 18px 20px; display: flex; flex-direction: column; gap: 28px; position: sticky; top: 0; height: 100vh; box-shadow: 8px 0 0 var(--edge-glow); }
     .brand { display: flex; align-items: center; gap: 11px; padding: 0 7px; }
     .brand-mark { width: 35px; height: 35px; border-radius: 11px; display: grid; place-items: center; background: var(--lime); color: var(--ink); font-size: 22px; font-weight: 900; transform: rotate(-5deg); box-shadow: 4px 4px 0 var(--pink); }
     .brand-name { font-family: var(--serif); font-size: 21px; line-height: 1; letter-spacing: -.5px; }
@@ -49,8 +103,22 @@
     .nav-button { border: 0; border-radius: 11px; padding: 11px 12px; display: flex; align-items: center; gap: 11px; color: #aeb8b4; background: transparent; text-align: left; font-size: 13px; transition: .18s ease; }
     .nav-button:hover, .nav-button.active { color: var(--ink); background: var(--lime); box-shadow: 4px 4px 0 var(--pink); }
     .nav-icon { width: 19px; height: 19px; display: grid; place-items: center; font-size: 17px; }
+    .theme-card { padding: 13px; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: rgba(255,255,255,.055); }
+    .theme-card .eyebrow { color: var(--lime); }
+    .theme-card p { margin: 6px 0 11px; color: #aeb8b4; font-size: 11px; line-height: 1.4; }
+    .theme-options { display: grid; gap: 7px; }
+    .theme-option { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 8px; width: 100%; border: 1px solid rgba(255,255,255,.12); border-radius: 9px; padding: 6px; color: #dfe5e1; background: rgba(255,255,255,.04); text-align: left; font-size: 11px; }
+    .theme-option:hover, .theme-option.active { border-color: var(--lime); color: var(--ink); background: var(--lime); }
+    .theme-swatch { display: flex; height: 22px; overflow: hidden; border-radius: 6px; }
+    .theme-swatch span { flex: 1; }
+    .theme-swatch .swatch-black { background: #171017; }
+    .theme-swatch .swatch-yellow { background: #ffd447; }
+    .theme-swatch .swatch-orange { background: #ff7c22; }
+    .theme-swatch .swatch-lime { background: #c4f25a; }
+    .theme-swatch .swatch-pink { background: #ff2f86; }
+    .theme-swatch .swatch-purple { background: #7226ca; }
     .sidebar-spacer { flex: 1; }
-    .side-card { padding: 15px; border: 1px solid rgba(183,243,74,.28); border-radius: 15px; background: linear-gradient(145deg, rgba(255,47,134,.12), rgba(124,58,237,.14)); }
+    .side-card { padding: 15px; border: 1px solid var(--edge-glow); border-radius: 15px; background: linear-gradient(145deg, var(--side-a), var(--side-b)); }
     .eyebrow, .section-kicker, .kicker { font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     .side-card .eyebrow { color: var(--lime); }
     .side-card strong { display: block; margin-top: 8px; font-size: 14px; }
@@ -83,9 +151,9 @@
     .page-subtitle { max-width: 600px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
     .data-badge { min-width: 270px; border: 2px solid var(--ink); border-radius: 18px; padding: 10px 13px 10px 9px; display: flex; align-items: center; gap: 10px; background: var(--lime); box-shadow: 7px 7px 0 var(--purple); }
     .data-badge strong { display: block; font-size: 12px; }
-    .data-badge span:last-child { display: block; margin-top: 3px; color: #4c6110; font-size: 11px; }
+    .data-badge span:last-child { display: block; margin-top: 3px; color: var(--ink-soft); font-size: 11px; }
     .advisor-avatar { width: 58px; height: 58px; flex: 0 0 auto; object-fit: contain; object-position: center; border-radius: 15px; background: var(--purple); }
-    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px rgba(255,47,134,.18); }
+    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px var(--pulse-glow); }
 
     .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; margin-bottom: 19px; }
     .metric { background: var(--card); border: 1px solid var(--line); border-radius: 15px; padding: 17px 18px; }
@@ -345,6 +413,15 @@
         <button class="nav-button" data-nav="stores"><span class="nav-icon">▦</span>Retailer coverage</button>
         <button class="nav-button" data-nav="saved"><span class="nav-icon">♡</span>Saved lists</button>
       </nav>
+      <section class="theme-card" aria-label="Color mood">
+        <div class="eyebrow">Color mood</div>
+        <p>Pick the household’s favorite vibe.</p>
+        <div class="theme-options" id="themeOptions">
+          <button class="theme-option" type="button" data-action="set-theme" data-theme-choice="black-yellow"><span class="theme-swatch"><span class="swatch-black"></span><span class="swatch-yellow"></span></span><span>Black + yellow</span></button>
+          <button class="theme-option" type="button" data-action="set-theme" data-theme-choice="citrus"><span class="theme-swatch"><span class="swatch-orange"></span><span class="swatch-lime"></span></span><span>Orange + lime</span></button>
+          <button class="theme-option" type="button" data-action="set-theme" data-theme-choice="pink-purple"><span class="theme-swatch"><span class="swatch-pink"></span><span class="swatch-purple"></span></span><span>Pink + purple</span></button>
+        </div>
+      </section>
       <div class="sidebar-spacer"></div>
       <div class="side-card">
         <div class="eyebrow">Household mode</div>
@@ -614,6 +691,7 @@
       selectedStores: new Set(stores.map(store => store.id)),
       multiStore: true,
       lastRefresh: '8 min ago',
+      theme: ['black-yellow', 'citrus', 'pink-purple'].includes(storedPreferences.theme) ? storedPreferences.theme : 'citrus',
       horizon: storedPreferences.horizon || 'weekly',
       weeklyBudget: Number(storedPreferences.weeklyBudget) || 125,
       watchedAlerts: new Set(Array.isArray(storedPreferences.watchedAlerts) ? storedPreferences.watchedAlerts : saleAlerts.map(alert => alert.id)),
@@ -625,8 +703,13 @@
       appliedContributionKeys: Array.isArray(storedPreferences.appliedContributionKeys) ? storedPreferences.appliedContributionKeys : []
     };
 
+    function applyTheme() {
+      document.documentElement.dataset.theme = state.theme;
+      document.querySelectorAll('.theme-option').forEach(button => button.classList.toggle('active', button.dataset.themeChoice === state.theme));
+    }
+
     function persistPreferences() {
-      localStorage.setItem('coupe-savings-preferences', JSON.stringify({ horizon: state.horizon, weeklyBudget: state.weeklyBudget, watchedAlerts: [...state.watchedAlerts], goals: state.goals, pantry: state.pantry, priceWatches: state.priceWatches, autoContribute: state.autoContribute, contributionGoalId: state.contributionGoalId, appliedContributionKeys: state.appliedContributionKeys.slice(-12) }));
+      localStorage.setItem('coupe-savings-preferences', JSON.stringify({ theme: state.theme, horizon: state.horizon, weeklyBudget: state.weeklyBudget, watchedAlerts: [...state.watchedAlerts], goals: state.goals, pantry: state.pantry, priceWatches: state.priceWatches, autoContribute: state.autoContribute, contributionGoalId: state.contributionGoalId, appliedContributionKeys: state.appliedContributionKeys.slice(-12) }));
     }
 
     function setHorizon(horizon) {
@@ -675,6 +758,7 @@
     }
 
     function renderAll() {
+      applyTheme();
       renderItems();
       renderPlan();
       renderOffers();
@@ -893,6 +977,15 @@
       if (actionTarget) {
         const id = actionTarget.dataset.id;
         const item = state.items.find(entry => entry.id === id);
+        if (actionTarget.dataset.action === 'set-theme') {
+          const theme = actionTarget.dataset.themeChoice;
+          if (['black-yellow', 'citrus', 'pink-purple'].includes(theme)) {
+            state.theme = theme;
+            persistPreferences();
+            applyTheme();
+            toast({ 'black-yellow': 'Black + yellow mood selected.', citrus: 'Orange + lime mood selected.', 'pink-purple': 'Pink + purple mood selected.' }[theme]);
+          }
+        }
         if (actionTarget.dataset.action === 'increase' && item) item.quantity += 1;
         if (actionTarget.dataset.action === 'decrease' && item) item.quantity = Math.max(1, item.quantity - 1);
         if (actionTarget.dataset.action === 'remove') state.items = state.items.filter(entry => entry.id !== id);

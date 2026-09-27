@@ -13,6 +13,10 @@ It turns meal-planning templates and custom shopping items into a savings-focuse
 - Upcoming sale alerts that can be watched or muted
 - Daily, weekly, monthly, yearly, and five-year budget views
 - Long-term household goals with progress tracking and quick savings deposits
+- Pantry status tracking between trips
+- Item-level target-price watches with retailer comparisons
+- Savings history with weekly momentum and annualized projections
+- Optional one-time automatic routing of reviewed trip savings into a selected goal
 - A retailer adapter boundary for Walmart, Price Chopper, Market Basket, Ocean State Job Lot, Family Dollar, Dollar General, BJ's Wholesale, and Big Y
 
 ## Run locally
@@ -27,4 +31,4 @@ python -m http.server 4173 --directory dist
 python -m http.server 4173
 ```
 
-The app uses local browser storage for household budget preferences, alert subscriptions, and goal progress. The current UI uses clearly labeled illustrative preview data. Live coupon and price adapters should only use public, permitted, or approved sources and should attach source URLs, timestamps, expiration data, eligibility, and confidence metadata.
+The app uses local browser storage for household budget preferences, alert subscriptions, goal progress, pantry status, price watches, and the optional auto-save rule. The current UI uses clearly labeled illustrative preview data. Live coupon and price adapters should only use public, permitted, or approved sources and should attach source URLs, timestamps, expiration data, eligibility, and confidence metadata.

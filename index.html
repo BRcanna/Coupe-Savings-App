@@ -194,6 +194,57 @@
     .goal-form input { min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; color: var(--ink); background: #fff; font-size: 11px; }
     .goal-form input:focus, .budget-form input:focus { outline: 2px solid rgba(172,205,56,.28); border-color: var(--lime-deep); }
     .recommendation-note { margin: 0 23px 21px; padding: 11px 12px; border-left: 3px solid var(--coral); color: var(--ink-soft); background: #fff5f1; font-size: 11px; line-height: 1.45; }
+    .goal-automation { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(220px,.9fr); gap: 12px; margin: 0 23px 18px; padding: 14px; border: 1px solid #e7ecd9; border-radius: 12px; background: #f8faef; }
+    .automation-copy strong { display: block; font-size: 12px; }
+    .automation-copy p { margin: 5px 0 10px; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .automation-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+    .automation-select label { display: block; color: var(--muted); font-size: 10px; }
+    .automation-select select { width: 100%; margin-top: 6px; border: 1px solid #dbe4c5; border-radius: 8px; padding: 8px 9px; color: var(--ink); background: #fff; font-size: 11px; }
+    .automation-select p { margin: 7px 0 0; color: #718341; font-size: 10px; line-height: 1.35; }
+
+    .utility-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 19px; margin-top: 19px; }
+    .utility-list { display: grid; }
+    .pantry-summary { display: flex; flex-wrap: wrap; gap: 7px; padding: 0 23px 15px; }
+    .pantry-summary .tag { background: #f5f7f2; }
+    .pantry-summary .tag.need { color: #a05c18; background: #fff4da; }
+    .pantry-summary .tag.low { color: #697e19; background: #eff7d7; }
+    .pantry-row { display: grid; grid-template-columns: 31px minmax(0,1fr) auto; gap: 10px; align-items: center; padding: 12px 23px; border-top: 1px solid var(--line); }
+    .pantry-row .item-icon { width: 29px; height: 29px; }
+    .pantry-name { font-size: 12px; font-weight: 750; }
+    .pantry-detail { margin-top: 3px; color: var(--muted); font-size: 10px; }
+    .status-pill { min-width: 53px; border: 1px solid #dce5c7; border-radius: 7px; padding: 6px 7px; color: #66821a; background: #f3f9e0; font-size: 10px; font-weight: 750; }
+    .status-pill.need { border-color: #f0d89e; color: #a05c18; background: #fff4da; }
+    .status-pill.have { border-color: #dce2dd; color: var(--muted); background: #f5f7f4; }
+    .status-pill:hover { transform: translateY(-1px); }
+
+    .price-watch-list { display: grid; }
+    .price-watch-card { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 11px; padding: 13px 23px; border-top: 1px solid var(--line); }
+    .price-watch-top { display: flex; justify-content: space-between; gap: 9px; }
+    .price-watch-title { font-size: 12px; font-weight: 750; }
+    .price-watch-store { color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .price-watch-copy { margin-top: 5px; color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .price-watch-copy strong { color: var(--ink-soft); }
+    .price-watch-controls { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+    .watch-price-input { width: 72px; border: 1px solid var(--line); border-radius: 7px; padding: 6px 7px; color: var(--ink); background: #fff; font-size: 10px; font-weight: 700; text-align: right; }
+    .watch-price-input:focus { outline: 2px solid rgba(172,205,56,.28); border-color: var(--lime-deep); }
+    .price-watch-button { border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; color: var(--ink-soft); background: #fff; font-size: 10px; white-space: nowrap; }
+    .price-watch-button.watching { border-color: #d4e9a0; color: #66821a; background: #f3f9e0; }
+    .price-watch-button:hover { border-color: var(--lime-deep); }
+
+    .history-panel { margin-top: 19px; overflow: hidden; }
+    .history-overview { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; padding: 0 23px 18px; }
+    .history-stat { padding: 12px; border-radius: 10px; background: #f6f8f4; }
+    .history-stat span { display: block; color: var(--muted); font-size: 10px; }
+    .history-stat strong { display: block; margin-top: 5px; font-size: 18px; letter-spacing: -.4px; }
+    .history-stat strong.lime { color: #7da200; }
+    .history-chart { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); align-items: end; gap: 10px; min-height: 132px; padding: 18px 23px 11px; border-top: 1px solid var(--line); background: #fcfcfa; }
+    .history-bar-wrap { display: grid; grid-template-rows: 1fr auto; gap: 7px; height: 105px; align-items: end; }
+    .history-bar-track { height: 82px; display: flex; align-items: end; justify-content: center; }
+    .history-bar { width: min(28px, 75%); min-height: 8px; border-radius: 7px 7px 3px 3px; background: var(--lime-deep); }
+    .history-bar.current { background: var(--coral); }
+    .history-bar-label { color: var(--muted); font-size: 10px; text-align: center; }
+    .history-bar-amount { margin-bottom: 4px; color: var(--ink-soft); font-size: 9px; font-weight: 750; text-align: center; }
+    .history-note { margin: 0 23px 20px; color: var(--muted); font-size: 10px; line-height: 1.45; }
 
     .lower-grid { display: grid; grid-template-columns: minmax(0,1.44fr) minmax(320px,.82fr); gap: 19px; margin-top: 19px; }
     .store-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; padding: 0 23px 23px; }
@@ -219,7 +270,7 @@
     @media (max-width: 1120px) {
       .app-shell { grid-template-columns: 210px minmax(0,1fr); }
       main { padding: 0 25px 42px; }
-      .workspace-grid, .lower-grid, .insight-grid { grid-template-columns: minmax(0,1fr); }
+      .workspace-grid, .lower-grid, .insight-grid, .utility-grid { grid-template-columns: minmax(0,1fr); }
       .side-column { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; }
       .store-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
     }
@@ -239,6 +290,10 @@
       .side-column { grid-template-columns: 1fr; }
       .store-grid { grid-template-columns: repeat(2,minmax(0,1fr)); padding-left: 16px; padding-right: 16px; }
       .goal-grid { grid-template-columns: 1fr; padding-left: 17px; padding-right: 17px; }
+      .goal-automation { grid-template-columns: 1fr; margin-left: 17px; margin-right: 17px; }
+      .history-overview { grid-template-columns: 1fr 1fr 1fr; padding-left: 17px; padding-right: 17px; }
+      .history-chart { padding-left: 17px; padding-right: 17px; gap: 5px; }
+      .history-note { margin-left: 17px; margin-right: 17px; }
       .panel-head { padding-left: 17px; padding-right: 17px; }
       .quick-plans, .add-form { padding-left: 17px; padding-right: 17px; }
       .item-row, .assignment, .offer-card { padding-left: 17px; padding-right: 17px; }
@@ -250,6 +305,8 @@
       .budget-content { margin-left: 17px; margin-right: 17px; }
       .budget-form, .goal-form { padding-left: 17px; padding-right: 17px; }
       .recommendation-note { margin-left: 17px; margin-right: 17px; }
+      .pantry-summary { padding-left: 17px; padding-right: 17px; }
+      .pantry-row, .price-watch-card { padding-left: 17px; padding-right: 17px; }
       h1 { letter-spacing: -1px; }
     }
     @media (max-width: 430px) {
@@ -261,6 +318,8 @@
       .item-row .quantity { grid-column: 1 / -1; justify-self: end; margin-top: -5px; }
       .goal-form { grid-template-columns: 1fr 94px; }
       .goal-form .primary-button { grid-column: 1 / -1; }
+      .history-stat { padding: 9px; }
+      .history-stat strong { font-size: 15px; }
     }
   </style>
 </head>
@@ -276,6 +335,8 @@
         <button class="nav-button" data-nav="offers"><span class="nav-icon">◇</span>Offer board</button>
         <button class="nav-button" data-nav="alerts"><span class="nav-icon">◷</span>Sale alerts</button>
         <button class="nav-button" data-nav="budget"><span class="nav-icon">◎</span>Budget &amp; goals</button>
+        <button class="nav-button" data-nav="pantry"><span class="nav-icon">⌂</span>Pantry &amp; prices</button>
+        <button class="nav-button" data-nav="history"><span class="nav-icon">▥</span>Savings history</button>
         <button class="nav-button" data-nav="stores"><span class="nav-icon">▦</span>Retailer coverage</button>
         <button class="nav-button" data-nav="saved"><span class="nav-icon">♡</span>Saved lists</button>
       </nav>
@@ -390,8 +451,29 @@
       <section class="panel goal-panel" id="goalsSection">
         <div class="panel-head"><div><p class="section-kicker">6 · TURN SAVINGS INTO GOALS</p><h2>Long-term household goals</h2></div><span class="tag">Savings can compound</span></div>
         <p class="recommendation-note" id="recommendationNote">A simple rule: route a portion of verified coupon savings into a goal instead of letting it disappear into the week.</p>
+        <div class="goal-automation">
+          <div class="automation-copy"><strong>Make the habit automatic</strong><p>When enabled, reviewing a new trip earmarks its estimated savings once for the goal you choose.</p><label class="automation-toggle" for="autoContribute"><span>Auto-save verified trip savings</span><span class="switch"><input id="autoContribute" type="checkbox"><span class="switch-track"></span></span></label></div>
+          <div class="automation-select"><label for="contributionGoal">Send new savings to</label><select id="contributionGoal" aria-label="Goal for automatic savings"></select><p id="contributionPreview">Turn on auto-save to route the next reviewed trip.</p></div>
+        </div>
         <div class="goal-grid" id="goalGrid"></div>
         <form class="goal-form" id="goalForm"><input id="goalName" placeholder="Add a goal, like holiday pantry fund" aria-label="Goal name"><input id="goalTarget" type="number" min="1" step="1" placeholder="Target $" aria-label="Goal target"><button class="primary-button" type="submit">Add goal</button></form>
+      </section>
+      <section class="utility-grid" id="pantrySection">
+        <section class="panel" id="pantryPanel">
+          <div class="panel-head"><div><p class="section-kicker">7 · STAY AHEAD</p><h2>Pantry pulse</h2></div><span class="tag" id="pantryCountTag">0 need</span></div>
+          <div class="pantry-summary" id="pantrySummary"></div>
+          <div class="utility-list" id="pantryList"></div>
+        </section>
+        <section class="panel" id="priceWatchPanel">
+          <div class="panel-head"><div><p class="section-kicker">8 · WAIT FOR THE RIGHT PRICE</p><h2>Item price watch</h2></div><span class="tag" id="priceWatchCountTag">0 watching</span></div>
+          <div class="price-watch-list" id="priceWatchList"></div>
+        </section>
+      </section>
+      <section class="panel history-panel" id="historySection">
+        <div class="panel-head"><div><p class="section-kicker">9 · SEE THE MOMENTUM</p><h2>Savings history</h2></div><span class="tag">Preview ledger</span></div>
+        <div class="history-overview" id="historyOverview"></div>
+        <div class="history-chart" id="historyChart"></div>
+        <p class="history-note">Illustrative history is shown until real trips are recorded. Once connected to live sources, each verified trip can add a dated savings entry and show what was routed to a goal.</p>
       </section>
       <p class="footnote"><strong>Preview data:</strong> prices and offers below are illustrative to demonstrate the planner. Live retailer adapters can be connected only through public, permitted sources.</p>
     </main>
@@ -495,6 +577,26 @@
       { id: 'big-purchase', name: 'Next big purchase', target: 1200, saved: 310, horizon: 'Long term', weeks: 52 }
     ];
 
+    const pantryOrder = ['chicken', 'oats', 'coffee', 'detergent', 'paper', 'sauce'];
+    const defaultPantry = { chicken: 'need', oats: 'low', coffee: 'have', detergent: 'low', paper: 'need', sauce: 'have' };
+    const defaultPriceWatches = {
+      chicken: { enabled: true, target: 7.50 },
+      coffee: { enabled: true, target: 7.00 },
+      detergent: { enabled: false, target: 9.00 },
+      paper: { enabled: true, target: 8.50 },
+      oats: { enabled: false, target: 2.75 },
+      milk: { enabled: false, target: 3.50 }
+    };
+    const savingsHistory = [
+      { label: 'Mon', amount: 5.80 },
+      { label: 'Tue', amount: 8.20 },
+      { label: 'Wed', amount: 3.45 },
+      { label: 'Thu', amount: 11.10 },
+      { label: 'Fri', amount: 6.70 },
+      { label: 'Sat', amount: 14.35 },
+      { label: 'Today', amount: 0, current: true }
+    ];
+
     let storedPreferences = {};
     try { storedPreferences = JSON.parse(localStorage.getItem('coupe-savings-preferences') || '{}'); } catch (error) { storedPreferences = {}; }
 
@@ -510,11 +612,16 @@
       horizon: storedPreferences.horizon || 'weekly',
       weeklyBudget: Number(storedPreferences.weeklyBudget) || 125,
       watchedAlerts: new Set(Array.isArray(storedPreferences.watchedAlerts) ? storedPreferences.watchedAlerts : saleAlerts.map(alert => alert.id)),
-      goals: Array.isArray(storedPreferences.goals) ? storedPreferences.goals : defaultGoals
+      goals: Array.isArray(storedPreferences.goals) ? storedPreferences.goals : defaultGoals,
+      pantry: { ...defaultPantry, ...(storedPreferences.pantry || {}) },
+      priceWatches: { ...defaultPriceWatches, ...(storedPreferences.priceWatches || {}) },
+      autoContribute: storedPreferences.autoContribute === true,
+      contributionGoalId: storedPreferences.contributionGoalId || defaultGoals[0].id,
+      appliedContributionKeys: Array.isArray(storedPreferences.appliedContributionKeys) ? storedPreferences.appliedContributionKeys : []
     };
 
     function persistPreferences() {
-      localStorage.setItem('coupe-savings-preferences', JSON.stringify({ horizon: state.horizon, weeklyBudget: state.weeklyBudget, watchedAlerts: [...state.watchedAlerts], goals: state.goals }));
+      localStorage.setItem('coupe-savings-preferences', JSON.stringify({ horizon: state.horizon, weeklyBudget: state.weeklyBudget, watchedAlerts: [...state.watchedAlerts], goals: state.goals, pantry: state.pantry, priceWatches: state.priceWatches, autoContribute: state.autoContribute, contributionGoalId: state.contributionGoalId, appliedContributionKeys: state.appliedContributionKeys.slice(-12) }));
     }
 
     function setHorizon(horizon) {
@@ -555,6 +662,13 @@
       return rows.filter(row => row.option).map(row => ({ item: row.item, option: row.option }));
     }
 
+    function calculateTripSavings() {
+      const rows = calculatePlan();
+      const base = rows.reduce((sum, row) => sum + row.option.price * row.item.quantity, 0);
+      const total = rows.reduce((sum, row) => sum + finalPrice(row.option) * row.item.quantity, 0);
+      return Math.max(0, base - total);
+    }
+
     function renderAll() {
       renderItems();
       renderPlan();
@@ -564,6 +678,9 @@
       renderAlerts();
       renderBudget();
       renderGoals();
+      renderPantry();
+      renderPriceWatches();
+      renderHistory();
     }
 
     function renderAlerts() {
@@ -598,6 +715,59 @@
         const weeklyNeed = goal.weeks ? Math.ceil(remaining / goal.weeks) : remaining;
         return `<article class="goal-card"><div class="goal-top"><div class="goal-title">${goal.name}</div><div class="goal-horizon">${goal.horizon}</div></div><div class="goal-amounts"><span><strong>${money(goal.saved)}</strong> saved</span><span>${money(goal.target)} target</span></div><div class="goal-track"><div class="goal-fill" style="width:${progress}%"></div></div><div class="goal-footer"><span>${progress}% · ${money(weeklyNeed)} / week</span><button class="goal-save" type="button" data-action="save-goal" data-id="${goal.id}">＋ $25 saved</button></div></article>`;
       }).join('') : '<div class="empty-state">Add a goal to give your coupon savings somewhere to go.</div>';
+      const selectedGoal = state.goals.find(goal => goal.id === state.contributionGoalId) || state.goals[0];
+      if (selectedGoal && state.contributionGoalId !== selectedGoal.id) {
+        state.contributionGoalId = selectedGoal.id;
+        persistPreferences();
+      }
+      document.getElementById('autoContribute').checked = state.autoContribute;
+      document.getElementById('contributionGoal').innerHTML = state.goals.length ? state.goals.map(goal => `<option value="${goal.id}" ${goal.id === state.contributionGoalId ? 'selected' : ''}>${goal.name}</option>`).join('') : '<option value="">Add a goal first</option>';
+      const savings = calculateTripSavings();
+      document.getElementById('contributionPreview').textContent = state.autoContribute && selectedGoal ? `Reviewing this trip would earmark ${money(savings)} for ${selectedGoal.name}.` : 'Turn on auto-save to route the next reviewed trip.';
+    }
+
+    function renderPantry() {
+      const counts = pantryOrder.reduce((result, id) => {
+        const status = state.pantry[id] || 'need';
+        result[status] = (result[status] || 0) + 1;
+        return result;
+      }, { need: 0, low: 0, have: 0 });
+      document.getElementById('pantryCountTag').textContent = `${counts.need} need`;
+      document.getElementById('pantrySummary').innerHTML = `<span class="tag need">${counts.need} need</span><span class="tag low">${counts.low} running low</span><span class="tag">${counts.have} have</span>`;
+      const labels = { need: 'Need', low: 'Low', have: 'Have' };
+      document.getElementById('pantryList').innerHTML = pantryOrder.map(id => {
+        const item = itemCatalog[id];
+        const status = state.pantry[id] || 'need';
+        return `<div class="pantry-row"><span class="item-icon">${item.icon}</span><div><div class="pantry-name">${item.name}</div><div class="pantry-detail">${item.detail} · tap status to cycle</div></div><button class="status-pill ${status}" type="button" data-action="cycle-pantry" data-id="${id}">${labels[status]}</button></div>`;
+      }).join('');
+    }
+
+    function renderPriceWatches() {
+      const ids = Object.keys(defaultPriceWatches);
+      const watching = ids.filter(id => state.priceWatches[id]?.enabled).length;
+      document.getElementById('priceWatchCountTag').textContent = `${watching} watching`;
+      document.getElementById('priceWatchList').innerHTML = ids.map(id => {
+        const item = itemCatalog[id];
+        const watch = state.priceWatches[id] || { enabled: false, target: defaultPriceWatches[id].target };
+        const options = item.candidates.filter(option => state.selectedStores.has(option.store));
+        const best = options.slice().sort((a, b) => finalPrice(a) - finalPrice(b))[0] || item.candidates[0];
+        const bestPrice = best ? finalPrice(best) : 0;
+        const target = Number(watch.target || 0);
+        const hit = best && bestPrice <= target;
+        const priceCopy = best ? `${getStore(best.store).name} is at <strong>${money(bestPrice)}</strong> · ${hit ? 'at your target' : `${money(Math.max(0, bestPrice - target))} above target`}` : 'No selected retailer match yet.';
+        return `<article class="price-watch-card"><div><div class="price-watch-top"><div class="price-watch-title">${item.name}</div><div class="price-watch-store">${best ? best.unitPrice : 'No match'}</div></div><div class="price-watch-copy">${priceCopy}</div></div><div class="price-watch-controls"><input class="watch-price-input" data-price-target="${id}" type="number" min="0" step=".01" value="${target.toFixed(2)}" aria-label="Target price for ${item.name}"><button class="price-watch-button ${watch.enabled ? 'watching' : ''}" type="button" data-action="toggle-price-watch" data-id="${id}">${watch.enabled ? 'Watching' : 'Watch price'}</button></div></article>`;
+      }).join('');
+    }
+
+    function renderHistory() {
+      const currentSavings = calculateTripSavings();
+      const points = savingsHistory.map(point => point.current ? { ...point, amount: currentSavings } : point);
+      const weekTotal = points.reduce((sum, point) => sum + point.amount, 0);
+      const average = weekTotal / points.length;
+      const projectedYear = weekTotal * 52 / 7;
+      const max = Math.max(1, ...points.map(point => point.amount));
+      document.getElementById('historyOverview').innerHTML = `<div class="history-stat"><span>This week</span><strong class="lime">${money(weekTotal)}</strong></div><div class="history-stat"><span>Average day</span><strong>${money(average)}</strong></div><div class="history-stat"><span>Projected year</span><strong>${money(projectedYear)}</strong></div>`;
+      document.getElementById('historyChart').innerHTML = points.map(point => `<div class="history-bar-wrap"><div class="history-bar-track"><div class="history-bar-amount">${money(point.amount)}</div><div class="history-bar ${point.current ? 'current' : ''}" style="height:${Math.max(10, Math.round((point.amount / max) * 76))}px"></div></div><div class="history-bar-label">${point.label}</div></div>`).join('');
     }
 
     function renderItems() {
@@ -698,6 +868,21 @@
       toastTimer = setTimeout(() => element.classList.remove('show'), 2800);
     }
 
+    function applyAutomaticContribution() {
+      if (!state.autoContribute) return false;
+      const goal = state.goals.find(entry => entry.id === state.contributionGoalId);
+      const savings = calculateTripSavings();
+      const rows = calculatePlan();
+      if (!goal || savings <= 0 || !rows.length) return false;
+      const key = rows.map(row => `${row.item.id}:${row.item.quantity}:${row.option.store}`).join('|');
+      if (state.appliedContributionKeys.includes(key)) return false;
+      goal.saved = Math.min(goal.target, Number(goal.saved || 0) + Number(savings.toFixed(2)));
+      state.appliedContributionKeys.push(key);
+      persistPreferences();
+      renderGoals();
+      return true;
+    }
+
     document.addEventListener('click', event => {
       const actionTarget = event.target.closest('[data-action]');
       if (actionTarget) {
@@ -716,6 +901,19 @@
           const goal = state.goals.find(entry => entry.id === id);
           if (goal) { goal.saved = Math.min(goal.target, Number(goal.saved || 0) + 25); persistPreferences(); toast(`${goal.name} moved ${money(25)} closer.`); }
         }
+        if (actionTarget.dataset.action === 'cycle-pantry') {
+          const nextStatus = { need: 'low', low: 'have', have: 'need' }[state.pantry[id] || 'need'];
+          state.pantry[id] = nextStatus;
+          persistPreferences();
+          toast(`${itemCatalog[id]?.name || 'Pantry item'} marked ${nextStatus}.`);
+        }
+        if (actionTarget.dataset.action === 'toggle-price-watch') {
+          const watch = state.priceWatches[id] || { enabled: false, target: defaultPriceWatches[id]?.target || 0 };
+          watch.enabled = !watch.enabled;
+          state.priceWatches[id] = watch;
+          persistPreferences();
+          toast(watch.enabled ? `Price watch added for ${itemCatalog[id]?.name || 'item'}.` : 'Price watch muted.');
+        }
         renderAll();
       }
       const planButton = event.target.closest('[data-plan]');
@@ -727,7 +925,7 @@
       const navButton = event.target.closest('[data-nav]');
       if (navButton) {
         document.querySelectorAll('.nav-button').forEach(button => button.classList.toggle('active', button === navButton));
-        const target = { planner: 'plannerSection', offers: 'offersPanel', alerts: 'alertsSection', budget: 'budgetSection', stores: 'storesSection', saved: 'listPanel' }[navButton.dataset.nav];
+        const target = { planner: 'plannerSection', offers: 'offersPanel', alerts: 'alertsSection', budget: 'budgetSection', pantry: 'pantrySection', history: 'historySection', stores: 'storesSection', saved: 'listPanel' }[navButton.dataset.nav];
         document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         if (navButton.dataset.nav === 'saved') toast('Saved lists are ready for the next persistence pass.');
         document.getElementById('sidebar').classList.remove('open');
@@ -763,6 +961,31 @@
       toast(`Weekly grocery cap set to ${money(state.weeklyBudget)}.`);
     });
 
+    document.getElementById('priceWatchList').addEventListener('input', event => {
+      const id = event.target.dataset.priceTarget;
+      if (!id) return;
+      const nextTarget = Number(event.target.value);
+      const watch = state.priceWatches[id] || { enabled: false, target: 0 };
+      watch.target = Number.isFinite(nextTarget) && nextTarget >= 0 ? Number(nextTarget.toFixed(2)) : 0;
+      state.priceWatches[id] = watch;
+      persistPreferences();
+    });
+
+    document.getElementById('autoContribute').addEventListener('change', event => {
+      state.autoContribute = event.target.checked;
+      persistPreferences();
+      renderGoals();
+      toast(state.autoContribute ? 'Auto-save is on for the next reviewed trip.' : 'Auto-save is off.');
+    });
+
+    document.getElementById('contributionGoal').addEventListener('change', event => {
+      state.contributionGoalId = event.target.value;
+      persistPreferences();
+      renderGoals();
+      const goal = state.goals.find(entry => entry.id === state.contributionGoalId);
+      if (goal) toast(`Future trip savings will go to ${goal.name}.`);
+    });
+
     document.getElementById('goalForm').addEventListener('submit', event => {
       event.preventDefault();
       const nameInput = document.getElementById('goalName');
@@ -794,8 +1017,9 @@
     });
 
     document.getElementById('reviewTrip').addEventListener('click', () => {
+      const applied = applyAutomaticContribution();
       document.getElementById('tripPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      toast('Trip review is ready. Use the source links to verify offers before checkout.');
+      toast(applied ? 'Trip review is ready. Estimated savings were earmarked for your goal.' : 'Trip review is ready. Use the source links to verify offers before checkout.');
     });
 
     document.getElementById('seeAllOffers').addEventListener('click', () => {
